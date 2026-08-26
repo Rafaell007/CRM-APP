@@ -12,7 +12,7 @@ const ADMIN_NAV = [
 ];
 const AdminLayout = () => {
   return (
-    <>
+    
       <div className="layout">
         <aside>
           {ADMIN_NAV.map((item) => {
@@ -25,7 +25,7 @@ const AdminLayout = () => {
         </aside>
         <Outlet />
       </div>
-    </>
+
   );
 };
 

@@ -5,6 +5,7 @@ import AdminEmployeesPage from "./pages/AdminEmployeesPage";
 import TablesPage from "./pages/TablesPage";
 import TableOrdersPage from "./pages/TableOrdersPage";
 import AdminLayout from "./layouts/AdminLayout";
+import WaiterLayout from "./layouts/WaiterLayout";
 
 
  const router = createBrowserRouter([
@@ -31,12 +32,18 @@ import AdminLayout from "./layouts/AdminLayout";
       ]
     },
     {
-      path: "/tables",
-      element: <TablesPage />,
-    },
-    {
-      path: "/tables/:tableId",
-      element: <TableOrdersPage />,
+      path: "/waiter",
+      element: <WaiterLayout />,
+      children: [
+        {
+          path: "tables",
+          element: <TablesPage />
+        },
+        {
+          path: "tables/:tableId",
+          element: <TableOrdersPage />
+        }
+      ]
     },
     {
       path: "*",
