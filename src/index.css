@@ -5,15 +5,17 @@
   --color-text: #1a1a1a;
   --color-active-bg: #1a1a1a;
   --color-active-text: #ffffff;
-
+  --color-surface-dark: #1a1a1a;
+  --color-border-dark: #333333;
+  --color-text-inverse: #e5e5e5;
+  --color-active-bg-inverse: #ffffff;
+  --color-active-text-inverse: #1a1a1a;
   --space-sm: 8px;
   --space-md: 16px;
   --space-lg: 24px;
-
   --radius: 4px;
   --sidebar-width: 240px;
 }
-
 *,
 *::before,
 *::after {
