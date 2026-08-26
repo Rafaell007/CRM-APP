@@ -3,7 +3,7 @@ import "./App.css";
 import LoginPage from "./pages/LoginPage";
 import EmployeesPage from "./pages/EmployeesPage";
 import TablesPage from "./pages/TablesPage";
-import TableOrders from "./pages/TableOrders";
+import TableOrdersPage from "./pages/TableOrdersPage";
 
 
  const router = createBrowserRouter([
@@ -25,7 +25,7 @@ import TableOrders from "./pages/TableOrders";
     },
     {
       path: "/tables/:tableId",
-      element: <TableOrders />,
+      element: <TableOrdersPage />,
     },
     {
       path: "*",
