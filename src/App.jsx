@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 import "./App.css";
 import LoginPage from "./pages/LoginPage";
-import EmployeesPage from "./pages/EmployeesPage";
+import AdminEmployeesPage from "./pages/AdminEmployeesPage";
 import TablesPage from "./pages/TablesPage";
 import TableOrdersPage from "./pages/TableOrdersPage";
+import AdminLayout from "./layouts/AdminLayout";
 
 
  const router = createBrowserRouter([
@@ -16,8 +17,18 @@ import TableOrdersPage from "./pages/TableOrdersPage";
       element: <LoginPage />,
     },
     {
-      path: "/admin/employees",
-      element: <EmployeesPage />,
+      path: "/admin",
+      element: <AdminLayout />,
+      children: [
+        {
+          index: true,
+          element: <Navigate to="/admin/employees" replace />,
+        },
+        {
+          path: "employees",
+          element: <AdminEmployeesPage />
+        }
+      ]
     },
     {
       path: "/tables",
