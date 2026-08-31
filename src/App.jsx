@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 import "./App.css";
 import LoginPage from "./pages/LoginPage";
-import AdminEmployeesPage from "./pages/AdminEmployeesPage";
+import AdminEmployeesPage from "./pages/AdminPage/AdminEmployeesPage";
 import TablesPage from "./pages/TablesPage";
 import TableOrdersPage from "./pages/TableOrdersPage";
 import AdminLayout from "./layouts/AdminLayout";

@@ -1,0 +1,32 @@
+const AdminSummary = ({employees}) => {
+  const total = employees.length;
+  const onShift = employees.filter((el) => el.onShift).length;
+  const idle = total - onShift;
+
+  const summary = [
+    { label: "All Employees", value: total },
+    { label: "On Shift", value: onShift },
+    { label: "Idle", value: idle },
+  ];
+
+  return (
+    <>
+      <h1 className="employee-summary__title">Employees</h1>
+
+      <div className="employee-summary__cards">
+        {summary.map(({ label, value }) => (
+          <div key={label} className="employee-summary__card">
+            <p className="employee-summary__label">{label}</p>
+            <div className="employee-summary__row">
+              <span className="employee-summary__count">{value}</span>
+              <span className="employee-summary__line"></span>
+              <button className="employee-summary__button">View</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default AdminSummary;
