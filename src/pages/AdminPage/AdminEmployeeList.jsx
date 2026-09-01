@@ -1,18 +1,10 @@
-import { ListFilter, Search} from "lucide-react";
 import { EmployeeRow } from "./EmployeeRow";
+import EmployeeFilters from "./EmployeeFilters";
 
 const AdminEmployeeList = ({ employees, shiftsById }) => {
   return (
     <section className="employee-list">
-      <div className="employee-list__toolbar">
-        <button className="employee-list__filters">
-          <ListFilter size={16} aria-hidden="true" />
-          Filters
-        </button>
-        <button className="employee-list__search" aria-label="Search employees">
-          <Search size={18} aria-hidden="true" />
-        </button>
-      </div>
+      <EmployeeFilters />
 
       <div className="employee-list__scroll">
         <div className="employee-list__head">
@@ -23,7 +15,7 @@ const AdminEmployeeList = ({ employees, shiftsById }) => {
           <span>Bonus</span>
         </div>
 
-        <ul className="employee-list__rows" >
+        <ul className="employee-list__rows">
           {employees.map((employee) => {
             return (
               <EmployeeRow
@@ -33,7 +25,6 @@ const AdminEmployeeList = ({ employees, shiftsById }) => {
               />
             );
           })}
-        
         </ul>
       </div>
     </section>
