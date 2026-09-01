@@ -264,7 +264,10 @@
     display: none;
   }
  
-  .employee-list__details {
+  /* both selectors, because a row left open on mobile keeps its --open class
+     after the resize, and that selector is stronger than a plain class */
+  .employee-list__details,
+  .employee-list__row--open .employee-list__details {
     display: contents;
   }
 
