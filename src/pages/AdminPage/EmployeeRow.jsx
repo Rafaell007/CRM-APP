@@ -2,7 +2,7 @@ import { useState } from "react";
 import { formatDate } from "../../utils/formatDate";
 import { ChevronDown, Plus } from "lucide-react";
 
-export const EmployeeRow = ({ employee }) => {
+export const EmployeeRow = ({ employee, shift }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -17,11 +17,13 @@ export const EmployeeRow = ({ employee }) => {
         </div>
       </div>
 
-      <span
-        className={`employee-list__shift employee-list__shift--${employee.shift.toLowerCase()}`}
-      >
-        {employee.shift}
-      </span>
+      {shift && (
+        <span
+          className={`employee-list__shift employee-list__shift--${shift.name.toLowerCase()}`}
+        >
+          {shift.name}
+        </span>
+      )}
       <button
         className="employee-list__toggle"
         onClick={() => setIsOpen(!isOpen)}

@@ -1,8 +1,7 @@
-import { ListFilter, Search, Plus } from "lucide-react";
-
+import { ListFilter, Search} from "lucide-react";
 import { EmployeeRow } from "./EmployeeRow";
 
-const AdminEmployeeList = ({employees}) => {
+const AdminEmployeeList = ({ employees, shiftsById }) => {
   return (
     <section className="employee-list">
       <div className="employee-list__toolbar">
@@ -25,10 +24,14 @@ const AdminEmployeeList = ({employees}) => {
         </div>
 
         <ul className="employee-list__rows" >
-          {employees.map((employee)=>{
+          {employees.map((employee) => {
             return (
-                <EmployeeRow employee = {employee} key={employee.id} />
-            )
+              <EmployeeRow
+                key={employee.id}
+                employee={employee}
+                shift={shiftsById.get(employee.shiftId)}
+              />
+            );
           })}
         
         </ul>

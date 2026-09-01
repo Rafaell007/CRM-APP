@@ -1,6 +1,10 @@
-const AdminSummary = ({employees}) => {
+const AdminSummary = ({ employees, activeShift }) => {
   const total = employees.length;
-  const onShift = employees.filter((el) => el.onShift).length;
+
+  const onShift = activeShift
+    ? employees.filter((employee) => employee.shiftId === activeShift.id).length
+    : 0;
+
   const idle = total - onShift;
 
   const summary = [
@@ -12,7 +16,6 @@ const AdminSummary = ({employees}) => {
   return (
     <>
       <h1 className="employee-summary__title">Employees</h1>
-
       <div className="employee-summary__cards">
         {summary.map(({ label, value }) => (
           <div key={label} className="employee-summary__card">
