@@ -168,6 +168,26 @@
   cursor: pointer;
 }
 
+/* sits at the end of the row, bottom-aligned with the selects
+   (the fields are taller because of their label) */
+.employee-filters__clear {
+  flex: 0 0 auto;
+  align-self: flex-end;
+  margin-left: auto;
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--color-text);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.employee-filters__clear:hover {
+  background-color: #ececec;
+}
+
 .employee-filter__control:focus-visible {
   outline: 2px solid var(--color-text);
   outline-offset: 1px;

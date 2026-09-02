@@ -1,10 +1,10 @@
 import { EmployeeRow } from "./EmployeeRow";
-import EmployeeFilters from "./EmployeeFilters";
 
-const AdminEmployeeList = ({ employees, shiftsById }) => {
+
+const AdminEmployeeList = ({ employees, shiftsById, children }) => {
   return (
     <section className="employee-list">
-      <EmployeeFilters />
+      { children }
 
       <div className="employee-list__scroll">
         <div className="employee-list__head">
