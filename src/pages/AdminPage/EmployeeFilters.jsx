@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ListFilter, Search } from "lucide-react";
 
-export const EmployeeFilters = ({
+const EmployeeFilters = ({
   shifts,
   filters,
   onFilterChange,

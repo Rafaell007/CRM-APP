@@ -6,50 +6,54 @@ import TablesPage from "./pages/TablesPage";
 import TableOrdersPage from "./pages/TableOrdersPage";
 import AdminLayout from "./layouts/AdminLayout";
 import WaiterLayout from "./layouts/WaiterLayout";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-
- const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Navigate to="/login" replace />,
-    },
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
-    {
-      path: "/admin",
-      element: <AdminLayout />,
-      children: [
-        {
-          index: true,
-          element: <Navigate to="/admin/employees" replace />,
-        },
-        {
-          path: "employees",
-          element: <AdminEmployeesPage />
-        }
-      ]
-    },
-    {
-      path: "/waiter",
-      element: <WaiterLayout />,
-      children: [
-        {
-          path: "tables",
-          element: <TablesPage />
-        },
-        {
-          path: "tables/:tableId",
-          element: <TableOrdersPage />
-        }
-      ]
-    },
-    {
-      path: "*",
-      element: <h1>404 — Page not found</h1>,
-    },
-  ]);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to="/login" replace />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute role="admin" >
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/admin/employees" replace />,
+      },
+      {
+        path: "employees",
+        element: <AdminEmployeesPage />,
+      },
+    ],
+  },
+  {
+    path: "/waiter",
+    element: <WaiterLayout />,
+    children: [
+      {
+        path: "tables",
+        element: <TablesPage />,
+      },
+      {
+        path: "tables/:tableId",
+        element: <TableOrdersPage />,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <h1>404 — Page not found</h1>,
+  },
+]);
 
 function App() {
   return (

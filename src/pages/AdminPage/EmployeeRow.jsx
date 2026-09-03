@@ -2,7 +2,7 @@ import { useState } from "react";
 import { formatDate } from "../../utils/formatDate";
 import { ChevronDown, Plus } from "lucide-react";
 
-export const EmployeeRow = ({employee: { avatar, name, email, shift, employmentDate, billingDate} }) => {
+const EmployeeRow = ({employee: { avatar, name, email, shift, employmentDate, billingDate} }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -46,3 +46,5 @@ export const EmployeeRow = ({employee: { avatar, name, email, shift, employmentD
     </li>
   );
 };
+
+export default EmployeeRow;

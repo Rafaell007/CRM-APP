@@ -9,10 +9,12 @@ import {
   UsersRound,
   Luggage,
   Stethoscope,
+  LogOut,
   Menu,
   X,
 } from "lucide-react";
 import "./AdminLayout.css";
+import { useAuth } from "../context/authContext";
 
 const ADMIN_NAV = [
   { to: "/admin/home", label: "Home", Icon: House },
@@ -27,6 +29,7 @@ const ADMIN_NAV = [
 
 const AdminLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { logout } = useAuth();
 
   return (
     <div className="admin-layout">
@@ -83,6 +86,11 @@ const AdminLayout = () => {
             ))}
           </ul>
         </nav>
+
+        <button className="admin-layout__logout" onClick={logout}>
+          <LogOut size={18} aria-hidden="true" />
+          Log out
+        </button>
       </aside>
 
       <main className="admin-layout__content">

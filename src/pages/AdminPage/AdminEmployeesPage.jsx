@@ -4,7 +4,7 @@ import { useEmployeesFilter } from "../../hooks/useEmployeeFilters";
 import "./AdminEmployeesPage.css";
 import AdminSummary from "./AdminSummary";
 import AdminEmployeeList from "./AdminEmployeeList";
-import { EmployeeFilters } from "./EmployeeFilters";
+import EmployeeFilters from "./EmployeeFilters";
 
 const AdminEmployeesPage = () => {
   const {

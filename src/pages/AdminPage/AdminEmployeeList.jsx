@@ -1,4 +1,4 @@
-import { EmployeeRow } from "./EmployeeRow";
+import EmployeeRow from "./EmployeeRow";
 
 const AdminEmployeeList = ({ employees, children }) => {
   return (
