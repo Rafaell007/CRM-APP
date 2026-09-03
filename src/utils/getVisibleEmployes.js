@@ -1,7 +1,9 @@
 export const getVisibleEmployees = (employees, filters, activeShift) => {
-  const { shiftId, status, sortBy, sortDirection } = filters;
+  const { search ,shiftId, status, sortBy, sortDirection } = filters;
 
+  const searchText = search.trim().toLowerCase();
   const filtered = employees.filter((employee) => {
+    if (searchText && !employee.name.toLowerCase().includes(searchText)) return false;
     if (shiftId !== "all" && employee.shiftId !== shiftId) return false;
     if (status === "onShift" && employee.shiftId !== activeShift?.id)
       return false;

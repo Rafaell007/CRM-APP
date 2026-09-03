@@ -3,6 +3,7 @@ import { getActiveShift } from "../utils/getActiveShift";
 import { getVisibleEmployees } from "../utils/getVisibleEmployes";
 
 export const INITIAL_FILTERS = {
+  search: "",
   shiftId: "all", // "all" | "shiftA" | "shiftB"
   status: "all", // "all" | "onShift" | "idle"
   sortBy: "employmentDate", // "employmentDate" | "billingDate"

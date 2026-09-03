@@ -11,7 +11,7 @@ const isInsideWindow = (currentTime, startTime, endTime) =>
   startTime <= endTime
     ? // Same-day window ("08:00"–"16:00"): must be after start AND before end.
       currentTime >= startTime && currentTime < endTime
-    : // Overnight window ("22:00"–"06:00") wraps past midnight, so the window is
+    : // Overnight window ("22:00"–"06:00") wraps past midnight
       currentTime >= startTime || currentTime < endTime;
 
 

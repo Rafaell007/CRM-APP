@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ListFilter } from "lucide-react";
+import { ListFilter, Search } from "lucide-react";
 
 export const EmployeeFilters = ({
   shifts,
@@ -8,6 +8,7 @@ export const EmployeeFilters = ({
   onReset,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const getSortValue = (field) =>
     filters.sortBy === field ? filters.sortDirection : "";
@@ -28,6 +29,29 @@ export const EmployeeFilters = ({
           <ListFilter size={16} aria-hidden="true" />
           Filters
         </button>
+
+        <div
+          className={`employee-search ${isSearchOpen ? "employee-search--open" : ""}`}
+        >
+          <input
+            className="employee-search__input"
+            type="search"
+            placeholder="Search employees"
+            aria-label="Search employees"
+            value={filters.search}
+            onChange={(event) => {
+              onFilterChange({search: event.target.value})
+            }}
+          />
+          <button
+            className="employee-search__button"
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            aria-expanded={isSearchOpen}
+            aria-label="Search employees"
+          >
+            <Search size={18} aria-hidden="true" />
+          </button>
+        </div>
       </div>
 
       <div
