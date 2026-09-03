@@ -30,7 +30,7 @@ const AdminLayout = () => {
 
   return (
     <div className="admin-layout">
-      {/* mobile only — hidden by CSS from 768px up */}
+      {/* mobile only*/}
       <header className="admin-layout__topbar">
         <button
           className="admin-layout__burger"
@@ -43,7 +43,6 @@ const AdminLayout = () => {
         <p className="admin-layout__brand">Restaurant CRM</p>
       </header>
 
-      {/* rendered only while open, so it can never swallow clicks when closed */}
       {isMenuOpen && (
         <div
           className="admin-layout__overlay"
@@ -64,7 +63,7 @@ const AdminLayout = () => {
 
         <p className="admin-layout__brand">Restaurant CRM</p>
 
-        {/* a link click bubbles up to here, so one handler closes the drawer */}
+      
         <nav aria-label="Admin" onClick={() => setIsMenuOpen(false)}>
           <ul className="admin-layout__list">
             {ADMIN_NAV.map(({ to, label, Icon }) => (

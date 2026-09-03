@@ -3,7 +3,6 @@ const AdminSummary = ({
   activeShift,
   onReset,
   onFilterChange,
-  onScrollToList,
 }) => {
   const total = employees.length;
 
@@ -37,12 +36,10 @@ const AdminSummary = ({
             <div className="employee-summary__row">
               <span className="employee-summary__count">{value}</span>
               <span className="employee-summary__line"></span>
-              {/* the scroll is the same for every card, so it lives here */}
               <button
                 className="employee-summary__button"
                 onClick={() => {
                   onClick();
-                  onScrollToList();
                 }}
               >
                 View

@@ -113,7 +113,6 @@
     width: 260px;
     height: 100vh;
     overflow-y: auto;
-    /* parked off-screen — transform animates on the GPU, unlike `left` */
     transform: translateX(-100%);
     transition: transform 0.25s ease;
   }

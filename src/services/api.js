@@ -25,16 +25,26 @@ export const api = createApi({
           return { error: { message: error.message } };
         }
       },
-      providesTags: ["Table"]
+      providesTags: ["Table"],
     }),
     getEmployees: builder.query({
       async queryFn() {
         try {
           const snap = await getDocs(collection(db, "employees"));
-          const employees = snap.docs.map((d) => ({
-            id: d.id,
-            ...toPlain(d.data()),
+          const shiftsSnapshot = await getDocs(collection(db, "shifts"));
+          const shifts = shiftsSnapshot.docs.map((document) => ({
+            id: document.id,
+            ...document.data(),
           }));
+          const shiftsById = new Map(shifts.map((shift) => [shift.id, shift]));
+          const employees = snap.docs.map((d) => {
+            const data = toPlain(d.data());
+            return {
+              ...data,
+              id: d.id,
+              shift: shiftsById.get(data.shiftId),
+            };
+          });
           return { data: employees };
         } catch (error) {
           return { error: { message: error.message } };
@@ -47,8 +57,8 @@ export const api = createApi({
         try {
           const snapshot = await getDocs(collection(db, "shifts"));
           const shifts = snapshot.docs.map((document) => ({
-            id: document.id,
             ...document.data(),
+            id: document.id,
           }));
           return { data: shifts };
         } catch (error) {

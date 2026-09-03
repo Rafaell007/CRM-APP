@@ -1,9 +1,8 @@
 import { EmployeeRow } from "./EmployeeRow";
 
-
-const AdminEmployeeList = ({ employees, shiftsById, children, listRef }) => {
+const AdminEmployeeList = ({ employees, children }) => {
   return (
-    <section className="employee-list" ref={listRef}>
+    <section className="employee-list">
       { children }
 
       <div className="employee-list__scroll">
@@ -21,7 +20,6 @@ const AdminEmployeeList = ({ employees, shiftsById, children, listRef }) => {
               <EmployeeRow
                 key={employee.id}
                 employee={employee}
-                shift={shiftsById.get(employee.shiftId)}
               />
             );
           })}
