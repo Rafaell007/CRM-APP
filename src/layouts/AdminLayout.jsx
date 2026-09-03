@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NavLink, Outlet } from "react-router";
 import {
   House,
@@ -8,6 +9,8 @@ import {
   UsersRound,
   Luggage,
   Stethoscope,
+  Menu,
+  X,
 } from "lucide-react";
 import "./AdminLayout.css";
 
@@ -23,12 +26,46 @@ const ADMIN_NAV = [
 ];
 
 const AdminLayout = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <div className="admin-layout">
-      <aside className="admin-layout__sidebar">
+      {/* mobile only — hidden by CSS from 768px up */}
+      <header className="admin-layout__topbar">
+        <button
+          className="admin-layout__burger"
+          onClick={() => setIsMenuOpen(true)}
+          aria-label="Open menu"
+          aria-expanded={isMenuOpen}
+        >
+          <Menu size={22} aria-hidden="true" />
+        </button>
+        <p className="admin-layout__brand">Restaurant CRM</p>
+      </header>
+
+      {/* rendered only while open, so it can never swallow clicks when closed */}
+      {isMenuOpen && (
+        <div
+          className="admin-layout__overlay"
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+
+      <aside
+        className={`admin-layout__sidebar ${isMenuOpen ? "admin-layout__sidebar--open" : ""}`}
+      >
+        <button
+          className="admin-layout__close"
+          onClick={() => setIsMenuOpen(false)}
+          aria-label="Close menu"
+        >
+          <X size={22} aria-hidden="true" />
+        </button>
+
         <p className="admin-layout__brand">Restaurant CRM</p>
 
-        <nav aria-label="Admin">
+        {/* a link click bubbles up to here, so one handler closes the drawer */}
+        <nav aria-label="Admin" onClick={() => setIsMenuOpen(false)}>
           <ul className="admin-layout__list">
             {ADMIN_NAV.map(({ to, label, Icon }) => (
               <li key={to}>

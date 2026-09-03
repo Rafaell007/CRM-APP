@@ -4,18 +4,14 @@ import { useEmployeesFilter } from "../../hooks/useEmployeeFilters";
 import "./AdminEmployeesPage.css";
 import AdminSummary from "./AdminSummary";
 import AdminEmployeeList from "./AdminEmployeeList";
-import { EmployeeFilters } from './EmployeeFilters'
-
-
+import { EmployeeFilters } from "./EmployeeFilters";
 
 const AdminEmployeesPage = () => {
-
   const {
     data: employees,
     isLoading: isLoadingEmployees,
     error: employeesError,
   } = useGetEmployeesQuery();
-
 
   const {
     data: shifts,
@@ -23,8 +19,13 @@ const AdminEmployeesPage = () => {
     error: shiftsError,
   } = useGetShiftsQuery();
 
-   const { filters, onFilterChange, resetFilters, visibleEmployees, activeShift } =
-    useEmployeesFilter(employees, shifts);
+  const {
+    filters,
+    onFilterChange,
+    resetFilters,
+    visibleEmployees,
+    activeShift,
+  } = useEmployeesFilter(employees, shifts);
 
   // holds the real <section> element so the summary cards can scroll to it
   const listRef = useRef(null);
@@ -45,20 +46,25 @@ const AdminEmployeesPage = () => {
 
   return (
     <>
-      <AdminSummary employees={employees}
-       activeShift={activeShift}
-      onReset = {resetFilters}
-        onFilterChange = {onFilterChange}
-        onScrollToList = {scrollToList}
-         />
+      <AdminSummary
+        employees={employees}
+        activeShift={activeShift}
+        onReset={resetFilters}
+        onFilterChange={onFilterChange}
+        onScrollToList={scrollToList}
+      />
 
-      <AdminEmployeeList employees={visibleEmployees} shiftsById={shiftsById} listRef={listRef} >
-              <EmployeeFilters
-                shifts = {shifts}
-                filters = { filters }
-                onFilterChange = {onFilterChange}
-                onReset = {resetFilters}
-              />
+      <AdminEmployeeList
+        employees={visibleEmployees}
+        shiftsById={shiftsById}
+        listRef={listRef}
+      >
+        <EmployeeFilters
+          shifts={shifts}
+          filters={filters}
+          onFilterChange={onFilterChange}
+          onReset={resetFilters}
+        />
       </AdminEmployeeList>
     </>
   );
