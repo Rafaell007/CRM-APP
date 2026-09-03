@@ -73,6 +73,7 @@
 /* ============ EMPLOYEE LIST ============ */
 
 .employee-list {
+  scroll-margin-top: 16px; /* breathing room when scrolled into view */
   margin-top: 24px;
   padding: 12px;
   background-color: #f7f7f7;

@@ -1,4 +1,4 @@
-
+import { useRef } from "react";
 import { useGetEmployeesQuery, useGetShiftsQuery } from "../../services/api";
 import { useEmployeesFilter } from "../../hooks/useEmployeeFilters";
 import "./AdminEmployeesPage.css";
@@ -26,6 +26,12 @@ const AdminEmployeesPage = () => {
    const { filters, onFilterChange, resetFilters, visibleEmployees, activeShift } =
     useEmployeesFilter(employees, shifts);
 
+  // holds the real <section> element so the summary cards can scroll to it
+  const listRef = useRef(null);
+
+  const scrollToList = () =>
+    listRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+
   if (isLoadingEmployees || isLoadingShifts) return <p>Loading...</p>;
   if (employeesError || shiftsError)
     return (
@@ -39,9 +45,14 @@ const AdminEmployeesPage = () => {
 
   return (
     <>
-      <AdminSummary employees={employees} activeShift={activeShift} />
-     
-      <AdminEmployeeList employees={visibleEmployees} shiftsById={shiftsById} >
+      <AdminSummary employees={employees}
+       activeShift={activeShift}
+      onReset = {resetFilters}
+        onFilterChange = {onFilterChange}
+        onScrollToList = {scrollToList}
+         />
+
+      <AdminEmployeeList employees={visibleEmployees} shiftsById={shiftsById} listRef={listRef} >
               <EmployeeFilters
                 shifts = {shifts}
                 filters = { filters }

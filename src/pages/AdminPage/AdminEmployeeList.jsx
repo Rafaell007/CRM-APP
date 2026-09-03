@@ -1,9 +1,9 @@
 import { EmployeeRow } from "./EmployeeRow";
 
 
-const AdminEmployeeList = ({ employees, shiftsById, children }) => {
+const AdminEmployeeList = ({ employees, shiftsById, children, listRef }) => {
   return (
-    <section className="employee-list">
+    <section className="employee-list" ref={listRef}>
       { children }
 
       <div className="employee-list__scroll">
