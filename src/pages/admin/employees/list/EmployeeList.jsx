@@ -1,6 +1,7 @@
+import "./EmployeeList.css";
 import EmployeeRow from "./EmployeeRow";
 
-const AdminEmployeeList = ({ employees, children }) => {
+const EmployeeList = ({ employees, children }) => {
   return (
     <section className="employee-list">
       { children }
@@ -29,4 +30,4 @@ const AdminEmployeeList = ({ employees, children }) => {
   );
 };
 
-export default AdminEmployeeList;
+export default EmployeeList;

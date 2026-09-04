@@ -1,4 +1,5 @@
-const AdminSummary = ({
+import "./EmployeeSummary.css";
+const EmployeeSummary = ({
   employees,
   activeShift,
   onReset,
@@ -52,4 +53,4 @@ const AdminSummary = ({
   );
 };
 
-export default AdminSummary;
+export default EmployeeSummary;

@@ -1,10 +1,10 @@
 
-import { useGetEmployeesQuery, useGetShiftsQuery } from "../../services/api";
-import { useEmployeesFilter } from "../../hooks/useEmployeeFilters";
-import "./AdminEmployeesPage.css";
-import AdminSummary from "./AdminSummary";
-import AdminEmployeeList from "./AdminEmployeeList";
-import EmployeeFilters from "./EmployeeFilters";
+import { useGetEmployeesQuery, useGetShiftsQuery } from "../../../services/api";
+import { useEmployeesFilter } from "../../../hooks/useEmployeeFilters";
+
+import EmployeeSummary from "./summary/EmployeeSummary";
+import EmployeeList from "./list/EmployeeList";
+import EmployeeFilters from "./filters/EmployeeFilters";
 
 const AdminEmployeesPage = () => {
   const {
@@ -39,14 +39,14 @@ const AdminEmployeesPage = () => {
 
   return (
     <>
-      <AdminSummary
+      <EmployeeSummary
         employees={employees}
         activeShift={activeShift}
         onReset={resetFilters}
         onFilterChange={onFilterChange}
       />
 
-      <AdminEmployeeList
+      <EmployeeList
         employees={visibleEmployees}
       >
         <EmployeeFilters
@@ -55,7 +55,7 @@ const AdminEmployeesPage = () => {
           onFilterChange={onFilterChange}
           onReset={resetFilters}
         />
-      </AdminEmployeeList>
+      </EmployeeList>
     </>
   );
 };

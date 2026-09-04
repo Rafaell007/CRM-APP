@@ -1,4 +1,4 @@
-import { useGetTablesQuery } from "../services/api";
+import { useGetTablesQuery } from "../../services/api";
 
 const TablesPage = () => {
   const { data: tables, isLoading, error } = useGetTablesQuery();

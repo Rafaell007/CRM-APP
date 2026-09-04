@@ -1,0 +1,160 @@
+
+
+/* ---- person ---- */
+
+.employee-list__person {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.employee-list__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #ececec;
+}
+
+.employee-list__name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.employee-list__email {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #a3a3a3;
+}
+
+/* ---- shift badge ---- */
+
+.employee-list__shift {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: var(--color-surface);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+}
+
+.employee-list__shift--a {
+  background-color: #fbbf24;
+}
+
+.employee-list__shift--b {
+  background-color: #93c5fd;
+}
+
+/* ---- dates ---- */
+
+.employee-list__date {
+  font-size: 15px;
+}
+
+/* the column name is repeated per row while the table header is hidden */
+.employee-list__date::before {
+  content: attr(data-label) ": ";
+  color: #a3a3a3;
+}
+
+/* ---- bonus ---- */
+
+.employee-list__bonus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background-color: #ececec;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.employee-list__bonus:hover {
+  background-color: #dedede;
+}
+
+/* ---- mobile toggle ---- */
+
+.employee-list__toggle {
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.employee-list__toggle svg {
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.employee-list__toggle[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+/* ---- collapsible details ---- */
+
+.employee-list__details {
+  display: none;
+}
+
+.employee-list__row--open .employee-list__details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 1024px) {
+  .employee-list__toggle {
+    display: none;
+  }
+
+  /* both selectors, because a row left open on mobile keeps its --open class
+     after the resize, and that selector is stronger than a plain class */
+  .employee-list__details,
+  .employee-list__row--open .employee-list__details {
+    display: contents;
+  }
+
+  /* the children become direct grid items, so their mobile placement is dropped */
+  .employee-list__person,
+  .employee-list__shift,
+  .employee-list__date,
+  .employee-list__bonus {
+    grid-column: auto;
+    grid-row: auto;
+    justify-self: auto;
+    align-self: auto;
+  }
+
+  .employee-list__date::before {
+    content: none;
+  }
+}

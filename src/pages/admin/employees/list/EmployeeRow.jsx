@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { formatDate } from "../../utils/formatDate";
+import { formatDate } from "../../../../utils/formatDate";
 import { ChevronDown, Plus } from "lucide-react";
+import "./EmployeeRow.css";
 
 const EmployeeRow = ({employee: { avatar, name, email, shift, employmentDate, billingDate} }) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,0 +1,68 @@
+.employee-summary__title {
+  margin: 0 0 20px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.employee-summary__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.employee-summary__card {
+  padding: 20px 24px;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+}
+
+.employee-summary__label {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a3a3a3;
+}
+
+.employee-summary__row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.employee-summary__count {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.employee-summary__line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-text);
+}
+
+.employee-summary__button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.employee-summary__button:hover {
+  background-color: #ececec;
+}
+
+@media (min-width: 768px) {
+  .employee-summary__cards {
+    flex-direction: row;
+  }
+
+  .employee-summary__card {
+    flex: 1;
+  }
+}
