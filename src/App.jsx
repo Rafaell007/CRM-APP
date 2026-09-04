@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 import "./App.css";
 import LoginPage from "./pages/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import AdminEmployeesPage from "./pages/AdminPage/AdminEmployeesPage";
 import TablesPage from "./pages/TablesPage";
 import TableOrdersPage from "./pages/TableOrdersPage";
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <h1>404 — Page not found</h1>,
+    element: <NotFoundPage />,
   },
 ]);
 
