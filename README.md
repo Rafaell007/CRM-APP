@@ -259,10 +259,45 @@ npm run preview   # serve that build
 
 ---
 
+## Security
+
+Access is enforced in two places, and only the second one is real security:
+
+- **In the app** — `ProtectedRoute` hides pages by role. This is user
+  experience: it keeps a waiter out of the admin screens, but it runs in the
+  browser and can be bypassed.
+- **In Firestore Security Rules** — these run on Google's servers and cannot be
+  bypassed. The Firebase web API key is a public identifier (it ships inside the
+  JavaScript bundle by design), so the rules are what actually protect the data.
+
+The published rules read each user's `users/{uid}` document to get their role,
+then:
+
+| Collection | Read | Write |
+|---|---|---|
+| `users` | own document only | nobody, from the client |
+| `employees` | admin | admin |
+| `shifts` | any signed-in user | admin |
+| `tables` | any signed-in user | any signed-in user |
+| `dishes` | any signed-in user | admin |
+
+Anything not listed is denied — Firestore starts from "no". `users` is
+write-blocked from the client on purpose, so nobody can promote themselves to
+admin.
+
+Verified with an unauthenticated REST request to the `employees` collection,
+which returns `403 PERMISSION_DENIED`.
+
+The seed scripts still work because the Firebase Admin SDK bypasses rules by
+design — that is why `serviceAccountKey.json` is the one genuine secret in this
+project and is git-ignored.
+
+---
+
 ## Known limitations
 
-- **Firestore Security Rules are not written yet.** Until they are, the route
-  guards can be bypassed and the database is open. This is the next task.
 - The on shift / idle counts are calculated on render, so they do not change by
   themselves when the clock passes a shift boundary — a refresh updates them.
 - The waiter section is still a bare list.
+- Shift windows use the browser's local clock, which is fine for display but not
+  something to bill on.
