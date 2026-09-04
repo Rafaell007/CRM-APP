@@ -95,7 +95,11 @@ data instead of ids.
 | globals | ^17.11.0 |
 | @types/react | ^19.2.18 |
 | @types/react-dom | ^19.2.4 |
-| firebase-admin | ^14.3.0 (seed scripts only) |
+| firebase-admin | ^14.3.0 (local admin scripts only) |
+| vitest | ^5.0.0 |
+| jsdom | ^29.1.1 |
+| @testing-library/react | ^16.3.3 |
+| @testing-library/jest-dom | ^7.0.1 |
 
 ---
 
@@ -135,24 +139,23 @@ VITE_FIREBASE_APP_ID=
 
 `.env` is git-ignored. Only `VITE_`-prefixed variables reach the browser.
 
-### 3. Seed the database (optional)
+### 3. Create the collections
 
-The scripts in `seed/` create demo data with the Firebase Admin SDK. They need a
-service account key:
+The app reads four collections — `users`, `shifts`, `employees`, `tables`.
+Create them in the Firebase console following the shapes in
+[Data model](#data-model) below.
 
-_Firebase Console → Project settings → Service accounts → Generate new private key_
+At minimum you need the two shift documents, with the id used as the reference:
 
-Save it as `seed/serviceAccountKey.json` — it is git-ignored and must never be
-committed.
-
-```bash
-node seed/seed.cjs        # 2 shifts + 55 employees
-node seed/seedTables.cjs  # tables
-node seed/seedDishes.cjs  # dishes
+```
+shifts/shiftA   { name: "A", startTime: "06:00", endTime: "14:00" }
+shifts/shiftB   { name: "B", startTime: "14:00", endTime: "22:00" }
 ```
 
-> `seed.cjs` **deletes** everything in the `shifts` and `employees` collections
-> before writing. Run it only on a database you are willing to rebuild.
+Anything written with the Firebase Admin SDK needs a service account key
+(_Project settings → Service accounts → Generate new private key_). Keep it in
+`.secrets/`, which is git-ignored — that key bypasses every security rule and
+must never be committed or deployed.
 
 ### 4. Create the accounts
 
@@ -188,6 +191,8 @@ Open http://localhost:5173 and sign in.
 | `npm run build` | Production build into `dist/` |
 | `npm run preview` | Serve the production build locally |
 | `npm run lint` | Run ESLint over the project |
+| `npm test` | Run the unit tests in watch mode |
+| `npm run test:run` | Run the unit tests once |
 
 ---
 
@@ -288,9 +293,9 @@ admin.
 Verified with an unauthenticated REST request to the `employees` collection,
 which returns `403 PERMISSION_DENIED`.
 
-The seed scripts still work because the Firebase Admin SDK bypasses rules by
-design — that is why `serviceAccountKey.json` is the one genuine secret in this
-project and is git-ignored.
+The Firebase Admin SDK bypasses these rules by design — that is why the service
+account key is the one genuine secret in this project. It lives in `.secrets/`,
+which is git-ignored, and must never be committed or deployed.
 
 ---
 
