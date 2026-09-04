@@ -4,7 +4,7 @@ A staff management application for a restaurant, built with React and Firebase.
 Two roles share one app: an **admin** manages employees and shifts, a **waiter**
 works with tables and orders.
 
-**Live demo:** _not deployed yet — link will be added here_
+**Live demo:** https://crm-app-iota-one.vercel.app
 
 ---
 
@@ -230,17 +230,32 @@ An employee stores only `shiftId` — a reference. Neither the shift name nor an
 
 ## Deployment
 
-Not deployed yet. When it is, add the link at the top of this file.
+Deployed on **Vercel**: https://crm-app-iota-one.vercel.app
 
-Any static host works, since the build output is plain files:
+Every push to `main` triggers a new build.
+
+Three things the host needs:
+
+1. **The six `VITE_FIREBASE_*` variables**, set in the Vercel project settings.
+   `.env` is git-ignored, so the values are entered there by hand.
+2. **A rewrite to `index.html`**, in [`vercel.json`](vercel.json):
+
+   ```json
+   { "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
+   ```
+
+   Paths like `/admin/employees` exist only inside React Router, not as files.
+   Without the rewrite, refreshing that URL returns a 404 from the server.
+3. **The deployed domain added to Firebase** —
+   _Authentication → Settings → Authorized domains_ — otherwise sign-in fails
+   with `auth/unauthorized-domain`.
+
+Building locally:
 
 ```bash
 npm run build     # produces dist/
+npm run preview   # serve that build
 ```
-
-The Firebase environment variables have to be set in the host's dashboard, and
-the host must rewrite all paths to `index.html` — otherwise a refresh on
-`/admin/employees` returns a 404.
 
 ---
 
