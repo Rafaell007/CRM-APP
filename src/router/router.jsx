@@ -1,12 +1,12 @@
 import { createBrowserRouter, Navigate } from "react-router";
-import ProtectedRoute from "./components/ProtectedRoute";
-import AdminLayout from "./layouts/AdminLayout";
-import WaiterLayout from "./layouts/WaiterLayout";
-import LoginPage from "./pages/login/LoginPage";
-import NotFoundPage from "./pages/notFound/NotFoundPage";
-import AdminEmployeesPage from "./pages/admin/employees/AdminEmployeesPage";
-import TablesPage from "./pages/waiter/TablesPage";
-import TableOrdersPage from "./pages/waiter/TableOrdersPage";
+import ProtectedRoute from "./ProtectedRoute";
+import AdminLayout from "../layouts/AdminLayout";
+import WaiterLayout from "../layouts/WaiterLayout";
+import LoginPage from "../pages/login/LoginPage";
+import NotFoundPage from "../pages/notFound/NotFoundPage";
+import AdminEmployeesPage from "../pages/admin/employees/AdminEmployeesPage";
+import TablesPage from "../pages/waiter/TablesPage";
+import TableOrdersPage from "../pages/waiter/TableOrdersPage";
 
 export const router = createBrowserRouter([
   {
