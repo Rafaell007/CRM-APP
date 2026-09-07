@@ -37,6 +37,24 @@ works with tables and orders.
 - **Responsive table** — a five-column grid on desktop; on mobile each row
   collapses and the details open with a toggle.
 
+### Admin — analytics
+
+A dashboard for the person running the shifts. Everything except the hours
+trend is computed from the `employees` and `shifts` collections — nothing is
+stored twice.
+
+- **Overview cards** — total staff, on shift now (with the idle count), hours
+  this month, average tenure.
+- **Staff hours per month** — a two-line chart, this year against last year,
+  with a percentage change badge for the current month. Hand-written SVG, no
+  chart library.
+- **Staff per shift** — a donut showing how the team is split, plus a slice for
+  anyone without a shift.
+- **Coverage today** — every shift drawn on a 24-hour bar with its headcount, a
+  marker at the current time, and the number of hours nobody covers. Shifts
+  that cross midnight are split into two blocks.
+- **Working now** — the people on the active shift.
+
 ### Waiter
 
 - List of tables read from Firestore (early stage)
@@ -141,8 +159,8 @@ VITE_FIREBASE_APP_ID=
 
 ### 3. Create the collections
 
-The app reads four collections — `users`, `shifts`, `employees`, `tables`.
-Create them in the Firebase console following the shapes in
+The app reads five collections — `users`, `shifts`, `employees`, `tables`,
+`attendance`. Create them in the Firebase console following the shapes in
 [Data model](#data-model) below.
 
 At minimum you need the two shift documents, with the id used as the reference:
@@ -151,6 +169,10 @@ At minimum you need the two shift documents, with the id used as the reference:
 shifts/shiftA   { name: "A", startTime: "06:00", endTime: "14:00" }
 shifts/shiftB   { name: "B", startTime: "14:00", endTime: "22:00" }
 ```
+
+`attendance` holds one document per month and feeds the hours chart. It can be
+generated with a local Admin SDK script kept in `.secrets/` — the values it
+writes are synthetic (a seasonal curve, not real timesheets).
 
 Anything written with the Firebase Admin SDK needs a service account key
 (_Project settings → Service accounts → Generate new private key_). Keep it in
@@ -200,20 +222,31 @@ Open http://localhost:5173 and sign in.
 
 ```
 src/
-├── app/                 Redux store
-├── components/          ProtectedRoute
-├── context/             AuthContext + AuthProvider
-├── hooks/               useEmployeesFilter
+├── context/             authContext + AuthProvider
+├── hooks/               useEmployeesFilter, useAnalytics
 ├── layouts/             AdminLayout, WaiterLayout
 ├── pages/
-│   ├── AdminPage/       employees page, summary, list, row, filters
-│   ├── LoginPage.jsx
-│   ├── NotFoundPage.jsx
-│   ├── TablesPage.jsx
-│   └── TableOrdersPage.jsx
+│   ├── AdminPage/
+│   │   ├── AdminEmployeesPage/   page + EmployeeSummary, EmployeeList, EmployeeFilters
+│   │   └── AdminAnalyticsPage/   page + AnalyticsOverview, AttendanceTrend,
+│   │                             StaffSplit, ShiftCoverage, OnShiftNow
+│   ├── LoginPage/
+│   ├── NotFoundPage/
+│   └── TableOrdersPage/          TablesPage, TableOrdersPage
+├── router/              router.jsx, ProtectedRoute
 ├── services/            firebase.js, api.js (RTK Query endpoints)
-└── utils/               formatDate, getActiveShift, getVisibleEmployees
+├── store/               Redux store
+└── utils/               formatDate, getActiveShift, getVisibleEmployees, getAnalytics
 ```
+
+Each component folder holds its `.jsx` next to its `.css`. Unit tests sit
+beside the file they cover (`getAnalytics.test.js` next to `getAnalytics.js`).
+
+The two admin pages follow the same shape: the page fetches with RTK Query,
+a hook (`useEmployeesFilter`, `useAnalytics`) turns raw collections into
+finished values, and the child components only render what they are given.
+All the calculation lives in pure functions under `utils/`, which is where the
+tests are.
 
 ---
 
@@ -226,10 +259,14 @@ employees/{id}      { name, email, avatar, shiftId,
                       employmentDate, billingDate }
 tables/{id}         { number, seats, status }
 dishes/{id}         { ... }
+attendance/{YYYY-MM} { month, year, monthIndex, hours, absences }
 ```
 
 An employee stores only `shiftId` — a reference. Neither the shift name nor an
 "on shift" flag is copied onto the employee, so nothing can fall out of sync.
+
+`attendance` is the only time-series collection: one document per month, with
+the month index (`0`–`11`) stored so the chart can place it without parsing.
 
 ---
 
@@ -285,6 +322,7 @@ then:
 | `shifts` | any signed-in user | admin |
 | `tables` | any signed-in user | any signed-in user |
 | `dishes` | any signed-in user | admin |
+| `attendance` | any signed-in user | nobody, from the client |
 
 Anything not listed is denied — Firestore starts from "no". `users` is
 write-blocked from the client on purpose, so nobody can promote themselves to
@@ -301,8 +339,11 @@ which is git-ignored, and must never be committed or deployed.
 
 ## Known limitations
 
-- The on shift / idle counts are calculated on render, so they do not change by
-  themselves when the clock passes a shift boundary — a refresh updates them.
+- The on shift / idle counts and the "now" marker on the coverage bar are
+  calculated on render, so they do not move by themselves when the clock passes
+  a shift boundary — a refresh updates them.
+- The attendance numbers behind the hours chart are generated, not recorded.
+  There is no clock-in feature yet to produce real ones.
 - The waiter section is still a bare list.
 - Shift windows use the browser's local clock, which is fine for display but not
   something to bill on.
