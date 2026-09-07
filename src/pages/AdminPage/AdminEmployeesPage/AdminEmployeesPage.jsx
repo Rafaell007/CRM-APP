@@ -2,9 +2,9 @@
 import { useGetEmployeesQuery, useGetShiftsQuery } from "../../../services/api";
 import { useEmployeesFilter } from "../../../hooks/useEmployeeFilters";
 
-import EmployeeSummary from "./summary/EmployeeSummary";
-import EmployeeList from "./list/EmployeeList";
-import EmployeeFilters from "./filters/EmployeeFilters";
+import EmployeeSummary from "./EmployeeSummary/EmployeeSummary";
+import EmployeeList from "./EmployeeList/EmployeeList";
+import EmployeeFilters from "./EmployeeFilters/EmployeeFilters";
 
 const AdminEmployeesPage = () => {
   const {
