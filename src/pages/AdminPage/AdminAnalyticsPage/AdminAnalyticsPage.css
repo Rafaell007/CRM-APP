@@ -1,0 +1,16 @@
+.admin-analytics__panels {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+@media (min-width: 1024px) {
+  .admin-analytics__panels {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .admin-analytics__panels--wide {
+    grid-template-columns: 2fr 1fr;
+  }
+}

@@ -5,6 +5,7 @@ import WaiterLayout from "../layouts/WaiterLayout";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import AdminEmployeesPage from "../pages/AdminPage/AdminEmployeesPage/AdminEmployeesPage";
+import AdminAnalyticsPage from "../pages/AdminPage/AdminAnalyticsPage/AdminAnalyticsPage";
 import TablesPage from "../pages/TableOrdersPage/TablesPage";
 import TableOrdersPage from "../pages/TableOrdersPage/TableOrdersPage";
 
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "employees",
         element: <AdminEmployeesPage />,
+      },
+      {
+        path: "analytics",
+        element: <AdminAnalyticsPage />,
       },
     ],
   },

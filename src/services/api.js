@@ -13,7 +13,7 @@ const toPlain = (data) =>
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fakeBaseQuery(),
-  tagTypes: ["Table", "Employees", "Shifts"],
+  tagTypes: ["Table", "Employees", "Shifts", "Attendance"],
   endpoints: (builder) => ({
     getTables: builder.query({
       async queryFn() {
@@ -67,8 +67,27 @@ export const api = createApi({
       },
       providesTags: ["Shifts"],
     }),
+    getAttendance: builder.query({
+      async queryFn() {
+        try {
+          const snapshot = await getDocs(collection(db, "attendance"));
+          const attendance = snapshot.docs.map((document) => ({
+            ...document.data(),
+            id: document.id,
+          }));
+          return { data: attendance };
+        } catch (error) {
+          return { error: { message: error.message } };
+        }
+      },
+      providesTags: ["Attendance"],
+    }),
   }),
 });
 
-export const { useGetTablesQuery, useGetEmployeesQuery, useGetShiftsQuery } =
-  api;
+export const {
+  useGetTablesQuery,
+  useGetEmployeesQuery,
+  useGetShiftsQuery,
+  useGetAttendanceQuery,
+} = api;
