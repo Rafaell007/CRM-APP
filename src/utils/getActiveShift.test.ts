@@ -8,15 +8,15 @@ const shifts = [
 
 describe("getActiveShift", () => {
   it("returns the shift whose window contains the current time", () => {
-    expect(getActiveShift(shifts, "10:30").id).toBe("shiftA");
-    expect(getActiveShift(shifts, "15:00").id).toBe("shiftB");
+    expect(getActiveShift(shifts, "10:30")?.id).toBe("shiftA");
+    expect(getActiveShift(shifts, "15:00")?.id).toBe("shiftB");
   });
 
   it("counts startTime as inside the window and endTime as outside", () => {
-    expect(getActiveShift(shifts, "06:00").id).toBe("shiftA");
-    expect(getActiveShift(shifts, "13:59").id).toBe("shiftA");
+    expect(getActiveShift(shifts, "06:00")?.id).toBe("shiftA");
+    expect(getActiveShift(shifts, "13:59")?.id).toBe("shiftA");
     // 14:00 belongs to B, not to A — the windows must not overlap
-    expect(getActiveShift(shifts, "14:00").id).toBe("shiftB");
+    expect(getActiveShift(shifts, "14:00")?.id).toBe("shiftB");
   });
 
   it("returns null when no shift is running", () => {
@@ -29,10 +29,10 @@ describe("getActiveShift", () => {
       { id: "night", name: "N", startTime: "22:00", endTime: "06:00" },
     ];
 
-    expect(getActiveShift(nightShift, "22:00").id).toBe("night");
-    expect(getActiveShift(nightShift, "23:30").id).toBe("night");
-    expect(getActiveShift(nightShift, "02:00").id).toBe("night");
-    expect(getActiveShift(nightShift, "05:59").id).toBe("night");
+    expect(getActiveShift(nightShift, "22:00")?.id).toBe("night");
+    expect(getActiveShift(nightShift, "23:30")?.id).toBe("night");
+    expect(getActiveShift(nightShift, "02:00")?.id).toBe("night");
+    expect(getActiveShift(nightShift, "05:59")?.id).toBe("night");
 
     expect(getActiveShift(nightShift, "06:00")).toBeNull();
     expect(getActiveShift(nightShift, "12:00")).toBeNull();
@@ -44,10 +44,10 @@ describe("getActiveShift", () => {
 
   it("returns the first match when windows overlap", () => {
     const overlapping = [
-      { id: "first", startTime: "08:00", endTime: "16:00" },
-      { id: "second", startTime: "10:00", endTime: "18:00" },
+      { id: "first", name: "F", startTime: "08:00", endTime: "16:00" },
+      { id: "second", name: "S", startTime: "10:00", endTime: "18:00" },
     ];
 
-    expect(getActiveShift(overlapping, "12:00").id).toBe("first");
+    expect(getActiveShift(overlapping, "12:00")?.id).toBe("first");
   });
 });
