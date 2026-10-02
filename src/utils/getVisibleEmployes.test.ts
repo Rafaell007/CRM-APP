@@ -1,33 +1,35 @@
 import { describe, it, expect } from "vitest";
-import { getVisibleEmployees } from "./getVisibleEmployes";
+import { getVisibleEmployees, type EmployeeFilters } from "./getVisibleEmployes";
+import type { Employee, Shift } from "../types/models";
+import { makeEmployee } from "../test/factories";
 
-const shiftA = { id: "shiftA", name: "A", startTime: "06:00", endTime: "14:00" };
+const shiftA: Shift = { id: "shiftA", name: "A", startTime: "06:00", endTime: "14:00" };
 
-const employees = [
-  {
+const employees: Employee[] = [
+  makeEmployee({
     id: "1",
     name: "Zoe Reed",
     shiftId: "shiftA",
     employmentDate: "2021-03-25T00:00:00.000Z",
     billingDate: "2023-01-13T00:00:00.000Z",
-  },
-  {
+  }),
+  makeEmployee({
     id: "2",
     name: "Tina Lawson",
     shiftId: "shiftB",
     employmentDate: "2020-06-05T00:00:00.000Z",
     billingDate: "2023-03-09T00:00:00.000Z",
-  },
-  {
+  }),
+  makeEmployee({
     id: "3",
     name: "Hugo Bauer",
     shiftId: "shiftA",
     employmentDate: "2022-11-14T00:00:00.000Z",
     billingDate: "2023-02-17T00:00:00.000Z",
-  },
+  }),
 ];
 
-const DEFAULT_FILTERS = {
+const DEFAULT_FILTERS: EmployeeFilters = {
   search: "",
   shiftId: "all",
   status: "all",
@@ -36,10 +38,10 @@ const DEFAULT_FILTERS = {
 };
 
 // small helper so each test only states what it changes
-const run = (changes = {}, activeShift = shiftA) =>
+const run = (changes: Partial<EmployeeFilters> = {}, activeShift: Shift | null = shiftA) =>
   getVisibleEmployees(employees, { ...DEFAULT_FILTERS, ...changes }, activeShift);
 
-const idsOf = (list) => list.map((employee) => employee.id);
+const idsOf = (list: Employee[]) => list.map((employee) => employee.id);
 
 describe("getVisibleEmployees", () => {
   describe("search", () => {
