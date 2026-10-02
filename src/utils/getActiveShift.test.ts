@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { getActiveShift } from "./getActiveShift";
 
+
 const shifts = [
   { id: "shiftA", name: "A", startTime: "06:00", endTime: "14:00" },
   { id: "shiftB", name: "B", startTime: "14:00", endTime: "22:00" },

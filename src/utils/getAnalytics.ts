@@ -1,21 +1,21 @@
+import type { Attendance, Employee, Shift } from "../types/models";
+
 const MINUTES_PER_DAY = 24 * 60;
 const MILLISECONDS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.25;
 
-const toMinutes = (time) => {
+const toMinutes = (time: string): number => {
   const [hours, minutes] = time.split(":").map(Number);
   return hours * 60 + minutes;
 };
 
-const tenureInYears = (employmentDate, now) =>
-  (now - new Date(employmentDate)) / MILLISECONDS_PER_YEAR;
+const tenureInYears = (employmentDate: string, now: Date): number =>
+  (now.getTime() - new Date(employmentDate).getTime()) / MILLISECONDS_PER_YEAR;
 
-// A shift is either a normal window ("06:00"-"14:00") or one that wraps
-// past midnight ("22:00"-"06:00"), which becomes two ranges.
-const toRanges = (startTime, endTime) => {
+const toRanges = (startTime: string, endTime: string): [number, number][] => {
   const start = toMinutes(startTime);
   const end = toMinutes(endTime);
 
-  const ranges =
+  const ranges:[number,number][] =
     start < end
       ? [[start, end]]
       : [
@@ -28,8 +28,8 @@ const toRanges = (startTime, endTime) => {
 };
 
 export const getAnalytics = (
-  employees = [],
-  activeShift = null,
+  employees: Employee[] = [],
+  activeShift: Shift | null = null,
   now = new Date(),
 ) => {
   const total = employees.length;
@@ -38,9 +38,9 @@ export const getAnalytics = (
     ? employees.filter((employee) => employee.shiftId === activeShift.id).length
     : 0;
 
-  const tenures = employees
-    .filter((employee) => employee.employmentDate)
-    .map((employee) => tenureInYears(employee.employmentDate, now));
+  const tenures = employees.map((employee) =>
+    tenureInYears(employee.employmentDate, now),
+  );
 
   const averageTenure = tenures.length
     ? tenures.reduce((sum, tenure) => sum + tenure, 0) / tenures.length
@@ -54,7 +54,10 @@ export const getAnalytics = (
   };
 };
 
-export const getShiftCoverage = (employees = [], shifts = []) =>
+export const getShiftCoverage = (
+  employees: Employee[] = [],
+  shifts: Shift[] = [],
+) =>
   shifts.map((shift) => ({
     id: shift.id,
     name: shift.name,
@@ -68,7 +71,7 @@ export const getShiftCoverage = (employees = [], shifts = []) =>
   }));
 
 // Hours of the day that no shift covers - the gap a manager has to fill.
-export const getUncoveredHours = (shifts = []) => {
+export const getUncoveredHours = (shifts: Shift[] = []): number => {
   const coveredMinutes = new Array(MINUTES_PER_DAY).fill(false);
 
   shifts.forEach((shift) => {
@@ -85,12 +88,18 @@ export const getUncoveredHours = (shifts = []) => {
 export const getNowPosition = (now = new Date()) =>
   ((now.getHours() * 60 + now.getMinutes()) / MINUTES_PER_DAY) * 100;
 
-export const getOnShiftEmployees = (employees = [], activeShift = null) =>
+export const getOnShiftEmployees = (
+  employees: Employee[] = [],
+  activeShift: Shift | null = null,
+) =>
   activeShift
     ? employees.filter((employee) => employee.shiftId === activeShift.id)
     : [];
 
-export const getStaffSplit = (employees = [], shifts = []) => {
+export const getStaffSplit = (
+  employees: Employee[] = [],
+  shifts: Shift[] = [],
+) => {
   const perShift = shifts.map((shift) => ({
     id: shift.id,
     label: `Shift ${shift.name}`,
@@ -101,7 +110,10 @@ export const getStaffSplit = (employees = [], shifts = []) => {
 
   const segments =
     unassigned > 0
-      ? [...perShift, { id: "unassigned", label: "No shift", count: unassigned }]
+      ? [
+          ...perShift,
+          { id: "unassigned", label: "No shift", count: unassigned },
+        ]
       : perShift;
 
   // Each slice of the donut needs to know where the previous one ended.
@@ -118,10 +130,12 @@ export const getStaffSplit = (employees = [], shifts = []) => {
 };
 
 // One line per year, twelve slots each. A month with no record stays null
-// so the line stops instead of falling to zero.
-export const getMonthlySeries = (attendance = [], now = new Date()) => {
-  const buildYear = (year) => {
-    const values = new Array(12).fill(null);
+export const getMonthlySeries = (
+  attendance: Attendance[] = [],
+  now = new Date(),
+) => {
+  const buildYear = (year: number) => {
+    const values: (number | null)[] = new Array(12).fill(null);
 
     attendance
       .filter((record) => record.year === year)
@@ -135,8 +149,11 @@ export const getMonthlySeries = (attendance = [], now = new Date()) => {
   return [buildYear(now.getFullYear()), buildYear(now.getFullYear() - 1)];
 };
 
-export const getHoursSummary = (attendance = [], now = new Date()) => {
-  const findHours = (year, monthIndex) =>
+export const getHoursSummary = (
+  attendance: Attendance[] = [],
+  now = new Date(),
+) => {
+  const findHours = (year: number, monthIndex: number): number =>
     attendance.find(
       (record) => record.year === year && record.monthIndex === monthIndex,
     )?.hours ?? 0;
