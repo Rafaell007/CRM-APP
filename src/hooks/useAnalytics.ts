@@ -11,7 +11,9 @@ import {
   getHoursSummary,
 } from "../utils/getAnalytics";
 
-export const useAnalytics = (employees = [], shifts = [], attendance = []) =>
+import type { Employee, Attendance, Shift } from "../types/models";
+
+export const useAnalytics = (employees: Employee[] = [], shifts:Shift[] = [], attendance:Attendance[] = []) =>
   useMemo(() => {
     const activeShift = getActiveShift(shifts);
 

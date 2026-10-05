@@ -33,3 +33,6 @@ dist-ssr
 serviceAccountKey.json
 *serviceAccount*.json
 firebase-adminsdk*.json
+
+# Private notes for Claude Code
+CLAUDE.md
