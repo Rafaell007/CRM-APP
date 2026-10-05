@@ -1,6 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { act, renderHook } from "@testing-library/react";
 import { useEmployeesFilter, INITIAL_FILTERS } from "./useEmployeeFilters";
+import type { Employee, Shift } from "../types/models";
+import { makeEmployee } from "../test/factories";
 
 describe("useEmployeesFilter", () => {
   it("starts with the default filters", () => {
@@ -48,16 +50,22 @@ describe("useEmployeesFilter", () => {
   });
 
   it("passes the active shift through to the visible list", () => {
-    const shifts = [
+    const shifts: Shift[] = [
       { id: "shiftA", name: "A", startTime: "00:00", endTime: "23:59" },
     ];
-    const employees = [{ id: "1", name: "Zoe Reed", shiftId: "shiftA",
-      employmentDate: "2021-03-25T00:00:00.000Z",
-      billingDate: "2023-01-13T00:00:00.000Z" }];
+    const employees: Employee[] = [
+      makeEmployee({
+        id: "1",
+        name: "Zoe Reed",
+        shiftId: "shiftA",
+        employmentDate: "2021-03-25T00:00:00.000Z",
+        billingDate: "2023-01-13T00:00:00.000Z",
+      }),
+    ];
 
     const { result } = renderHook(() => useEmployeesFilter(employees, shifts));
 
-    expect(result.current.activeShift.id).toBe("shiftA");
+    expect(result.current.activeShift?.id).toBe("shiftA");
     expect(result.current.visibleEmployees).toHaveLength(1);
   });
 });
