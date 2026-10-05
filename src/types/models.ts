@@ -18,6 +18,17 @@ export interface Shift {
 }
 
 
+export type TableStatus = "free" | "reserved" | "occupied";
+
+export interface Table {
+  id: string;
+  number: string;
+  seats: number;
+  status: TableStatus;
+  reservationTime: string | null; // ISO date, null when not reserved
+}
+
+
 export interface Attendance {
     id: string;
     absences: number;
