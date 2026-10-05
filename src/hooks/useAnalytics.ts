@@ -13,7 +13,16 @@ import {
 
 import type { Employee, Attendance, Shift } from "../types/models";
 
-export const useAnalytics = (employees: Employee[] = [], shifts:Shift[] = [], attendance:Attendance[] = []) =>
+// Created once, so the useMemo dependencies stay stable while the data is loading
+const NO_EMPLOYEES: Employee[] = [];
+const NO_SHIFTS: Shift[] = [];
+const NO_ATTENDANCE: Attendance[] = [];
+
+export const useAnalytics = (
+  employees: Employee[] = NO_EMPLOYEES,
+  shifts: Shift[] = NO_SHIFTS,
+  attendance: Attendance[] = NO_ATTENDANCE,
+) =>
   useMemo(() => {
     const activeShift = getActiveShift(shifts);
 
