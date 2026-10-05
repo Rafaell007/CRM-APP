@@ -1,8 +1,14 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
-import { collection, getDocs, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  Timestamp,
+  type DocumentData,
+} from "firebase/firestore";
 import { db } from "./firebase";
+import { getErrorMessage } from "../utils/getErrorMessage";
 
-const toPlain = (data) =>
+const toPlain = (data: DocumentData) =>
   Object.fromEntries(
     Object.entries(data).map(([key, value]) => [
       key,
@@ -12,7 +18,7 @@ const toPlain = (data) =>
 
 export const api = createApi({
   reducerPath: "api",
-  baseQuery: fakeBaseQuery(),
+  baseQuery: fakeBaseQuery<{ message: string }>(),
   tagTypes: ["Table", "Employees", "Shifts", "Attendance"],
   endpoints: (builder) => ({
     getTables: builder.query({
@@ -22,7 +28,7 @@ export const api = createApi({
           const tables = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
           return { data: tables };
         } catch (error) {
-          return { error: { message: error.message } };
+          return { error: { message: getErrorMessage(error) } };
         }
       },
       providesTags: ["Table"],
@@ -47,7 +53,7 @@ export const api = createApi({
           });
           return { data: employees };
         } catch (error) {
-          return { error: { message: error.message } };
+          return { error: { message: getErrorMessage(error) } };
         }
       },
       providesTags: ["Employees"],
@@ -62,7 +68,7 @@ export const api = createApi({
           }));
           return { data: shifts };
         } catch (error) {
-          return { error: { message: error.message } };
+          return { error: { message: getErrorMessage(error) } };
         }
       },
       providesTags: ["Shifts"],
@@ -77,7 +83,7 @@ export const api = createApi({
           }));
           return { data: attendance };
         } catch (error) {
-          return { error: { message: error.message } };
+          return { error: { message: getErrorMessage(error) } };
         }
       },
       providesTags: ["Attendance"],
