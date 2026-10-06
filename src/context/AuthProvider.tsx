@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -7,9 +7,14 @@ import {
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../services/firebase";
 import { AuthContext } from "./authContext";
+import type { AuthUser } from "../types/models";
 
-const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -23,14 +28,14 @@ const AuthProvider = ({ children }) => {
       setUser({
         uid: firebaseUser.uid,
         email: firebaseUser.email,
-        ...profile.data(),
+        role: profile.data()?.role,
       });
       setIsLoading(false);
     });
     return unsubscribe;
   }, []);
 
-  const login = (email, password) =>
+  const login = (email: string, password: string) =>
     signInWithEmailAndPassword(auth, email, password);
 
   const logout = () => signOut(auth);
