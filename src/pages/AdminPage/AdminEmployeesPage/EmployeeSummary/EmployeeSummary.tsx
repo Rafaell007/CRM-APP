@@ -1,17 +1,22 @@
 import "./EmployeeSummary.css";
+import { getAnalytics } from "../../../../utils/getAnalytics";
+import type { Employee, Shift } from "../../../../types/models";
+import type { EmployeeFilters } from "../../../../utils/getVisibleEmployes";
+
+interface EmployeeSummaryProps {
+  employees: Employee[];
+  activeShift: Shift | null;
+  onReset: () => void;
+  onFilterChange: (changes: Partial<EmployeeFilters>) => void;
+}
+
 const EmployeeSummary = ({
   employees,
   activeShift,
   onReset,
   onFilterChange,
-}) => {
-  const total = employees.length;
-
-  const onShift = activeShift
-    ? employees.filter((employee) => employee.shiftId === activeShift.id).length
-    : 0;
-
-  const idle = total - onShift;
+}: EmployeeSummaryProps) => {
+  const { total, onShift, idle } = getAnalytics(employees, activeShift);
 
   const summary = [
     { label: "All Employees", value: total, onClick: onReset },
@@ -36,13 +41,8 @@ const EmployeeSummary = ({
             <p className="employee-summary__label">{label}</p>
             <div className="employee-summary__row">
               <span className="employee-summary__count">{value}</span>
-              <span className="employee-summary__line"></span>
-              <button
-                className="employee-summary__button"
-                onClick={() => {
-                  onClick();
-                }}
-              >
+              <span className="employee-summary__line" />
+              <button className="employee-summary__button" onClick={onClick}>
                 View
               </button>
             </div>
