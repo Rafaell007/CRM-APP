@@ -1,7 +1,13 @@
 import { UsersRound, Clock, Timer, Award } from "lucide-react";
 import "./AnalyticsOverview.css";
+import type { AnalyticsStats } from "../../../../utils/getAnalytics";
 
-const AnalyticsOverview = ({ stats, hoursThisMonth }) => {
+interface AnalyticsOverviewProps {
+  stats: AnalyticsStats;
+  hoursThisMonth: number;
+}
+
+const AnalyticsOverview = ({ stats, hoursThisMonth }: AnalyticsOverviewProps) => {
   const { total, onShift, idle, averageTenure } = stats;
 
   const cards = [

@@ -1,5 +1,6 @@
 import { TrendingUp, TrendingDown } from "lucide-react";
 import "./AttendanceTrend.css";
+import type { YearSeries } from "../../../../utils/getAnalytics";
 
 const WIDTH = 640;
 const HEIGHT = 200;
@@ -12,24 +13,25 @@ const MONTH_LABELS = [
 
 // Months with no record are skipped, so the line stops instead of
 // dropping to zero for a year that is still running.
-const toPath = (values, highest) => {
-  let started = false;
-
-  return values
-    .reduce((path, value, index) => {
-      if (value === null) return path;
+const toPath = (values: YearSeries["values"], highest: number): string =>
+  values
+    .flatMap((value, index) => {
+      if (value === null) return [];
 
       const x = (index / (values.length - 1)) * WIDTH;
       const y = HEIGHT - PADDING - (value / highest) * (HEIGHT - PADDING * 2);
-      const command = started ? "L" : "M";
-      started = true;
+      return [`${x.toFixed(1)},${y.toFixed(1)}`];
+    })
+    // SVG path: "M" moves to the first point, "L" draws a line to each next one
+    .map((point, index) => `${index === 0 ? "M" : "L"}${point}`)
+    .join(" ");
 
-      return `${path}${command}${x.toFixed(1)},${y.toFixed(1)} `;
-    }, "")
-    .trim();
-};
+interface AttendanceTrendProps {
+  series: YearSeries[];
+  change: number | null; // % vs the same month last year, null = nothing to compare
+}
 
-const AttendanceTrend = ({ series, change }) => {
+const AttendanceTrend = ({ series, change }: AttendanceTrendProps) => {
   const allValues = series.flatMap(({ values }) =>
     values.filter((value) => value !== null),
   );
