@@ -1,11 +1,21 @@
 import "./StaffSplit.css";
+import type { StaffSplitSegment } from "../../../../utils/getAnalytics";
 
 const SIZE = 160;
+const CENTER = SIZE / 2;
 const RADIUS = 62;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 const SHADES = ["#1a1a1a", "#6b6b6b", "#a3a3a3", "#d6d6d6"];
 
-const StaffSplit = ({ segments, total }) => {
+// More segments than shades -> the colours repeat
+const shadeAt = (index: number) => SHADES[index % SHADES.length];
+
+interface StaffSplitProps {
+  segments: StaffSplitSegment[];
+  total: number;
+}
+
+const StaffSplit = ({ segments, total }: StaffSplitProps) => {
   return (
     <section className="staff-split">
       <h2 className="staff-split__title">Staff per shift</h2>
@@ -16,7 +26,7 @@ const StaffSplit = ({ segments, total }) => {
         <>
           <div className="staff-split__chart">
             <svg viewBox={`0 0 ${SIZE} ${SIZE}`} role="img" aria-label="Staff per shift">
-              <g transform={`rotate(-90 ${SIZE / 2} ${SIZE / 2})`}>
+              <g transform={`rotate(-90 ${CENTER} ${CENTER})`}>
                 {segments.map(({ id, fraction, startFraction }, index) => {
                   const length = fraction * CIRCUMFERENCE;
 
@@ -24,10 +34,10 @@ const StaffSplit = ({ segments, total }) => {
                     <circle
                       key={id}
                       className="staff-split__arc"
-                      cx={SIZE / 2}
-                      cy={SIZE / 2}
+                      cx={CENTER}
+                      cy={CENTER}
                       r={RADIUS}
-                      stroke={SHADES[index % SHADES.length]}
+                      stroke={shadeAt(index)}
                       strokeDasharray={`${length} ${CIRCUMFERENCE - length}`}
                       strokeDashoffset={-startFraction * CIRCUMFERENCE}
                     />
@@ -47,7 +57,7 @@ const StaffSplit = ({ segments, total }) => {
               <li key={id} className="staff-split__legend-item">
                 <span
                   className="staff-split__dot"
-                  style={{ backgroundColor: SHADES[index % SHADES.length] }}
+                  style={{ backgroundColor: shadeAt(index) }}
                 />
                 <span className="staff-split__label">{label}</span>
                 <span className="staff-split__count">{count}</span>

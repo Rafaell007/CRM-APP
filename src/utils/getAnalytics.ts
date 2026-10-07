@@ -15,7 +15,7 @@ const toRanges = (startTime: string, endTime: string): [number, number][] => {
   const start = toMinutes(startTime);
   const end = toMinutes(endTime);
 
-  const ranges:[number,number][] =
+  const ranges: [number, number][] =
     start < end
       ? [[start, end]]
       : [
@@ -167,3 +167,9 @@ export const getHoursSummary = (
     change: lastYear ? ((current - lastYear) / lastYear) * 100 : null,
   };
 };
+
+// Types derived from the functions above, so they never drift from the real data
+export type AnalyticsStats = ReturnType<typeof getAnalytics>;
+export type ShiftCoverageRow = ReturnType<typeof getShiftCoverage>[number];
+export type StaffSplitSegment = ReturnType<typeof getStaffSplit>[number];
+export type YearSeries = ReturnType<typeof getMonthlySeries>[number];
