@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
   {
     path: "/waiter",
     element: (
-      <ProtectedRoute role="waiter" >
+      <ProtectedRoute role="waiter">
         <WaiterLayout />
       </ProtectedRoute>
     ),

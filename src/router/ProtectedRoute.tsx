@@ -3,7 +3,7 @@ import { useAuth } from "../context/authContext";
 import type { ReactNode } from "react";
 import type { UserRole } from "../types/models";
 
- interface ProtectedRouteProps { 
+interface ProtectedRouteProps {
   role?: UserRole;
   children: ReactNode;
 }

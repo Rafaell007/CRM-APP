@@ -1,7 +1,7 @@
 import { useGetTablesQuery } from "../../services/api";
 
 const TablesPage = () => {
-  const { data: tables, isLoading, error } = useGetTablesQuery();
+  const { data: tables = [], isLoading, error } = useGetTablesQuery();
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Could not load the tables {error.message}</p>;

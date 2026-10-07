@@ -11,7 +11,6 @@ const NotFoundPage = () => {
           The address is wrong, or the page has been moved.
         </p>
 
-        {/* Link, not a button — it is navigation, so it should be a real anchor */}
         <Link className="not-found__button" to="/admin">
           Back
         </Link>
