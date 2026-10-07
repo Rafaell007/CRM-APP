@@ -42,7 +42,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/waiter",
-    element: <WaiterLayout />,
+    element: (
+      <ProtectedRoute role="waiter" >
+        <WaiterLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "tables",
