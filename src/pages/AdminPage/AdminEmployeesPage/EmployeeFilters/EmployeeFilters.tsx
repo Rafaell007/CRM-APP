@@ -1,21 +1,33 @@
 import { useState } from "react";
 import { ListFilter, Search } from "lucide-react";
 import "./EmployeeFilters.css";
+import type { Shift } from "../../../../types/models";
+import type { EmployeeFilters } from "../../../../utils/getVisibleEmployes";
+import { isSortDirection, isStatus } from "../../../../utils/filterGuards";
+
+interface EmployeeFiltersProps {
+  shifts: Shift[];
+  filters: EmployeeFilters;
+  onFilterChange: (changes: Partial<EmployeeFilters>) => void;
+  onReset: () => void;
+}
 
 const EmployeeFilters = ({
   shifts,
   filters,
   onFilterChange,
   onReset,
-}) => {
+}: EmployeeFiltersProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const getSortValue = (field) =>
+  const getSortValue = (field: EmployeeFilters["sortBy"]) =>
     filters.sortBy === field ? filters.sortDirection : "";
 
-  const handleSortChange = (field, direction) => {
-    if (!direction) return;
+  const handleSortChange = (
+    field: EmployeeFilters["sortBy"],
+    direction: EmployeeFilters["sortDirection"],
+  ) => {
     onFilterChange({ sortBy: field, sortDirection: direction });
   };
 
@@ -41,7 +53,7 @@ const EmployeeFilters = ({
             aria-label="Search employees"
             value={filters.search}
             onChange={(event) => {
-              onFilterChange({search: event.target.value})
+              onFilterChange({ search: event.target.value });
             }}
           />
           <button
@@ -69,7 +81,7 @@ const EmployeeFilters = ({
                   onFilterChange({ shiftId: event.target.value });
                 }}
               >
-                 <option value="all">All shifts</option>
+                <option value="all">All shifts</option>
                 {shifts.map((shift) => (
                   <option value={shift.id} key={shift.id}>
                     Shift {shift.name}
@@ -84,7 +96,9 @@ const EmployeeFilters = ({
                 className="employee-filter__control"
                 value={getSortValue("employmentDate")}
                 onChange={(event) => {
-                  handleSortChange("employmentDate", event.target.value);
+                  if (isSortDirection(event.target.value)) {
+                    handleSortChange("employmentDate", event.target.value);
+                  }
                 }}
               >
                 <option value="">Not sorted</option>
@@ -99,7 +113,9 @@ const EmployeeFilters = ({
                 className="employee-filter__control"
                 value={getSortValue("billingDate")}
                 onChange={(event) => {
-                  handleSortChange("billingDate", event.target.value);
+                  if (isSortDirection(event.target.value)) {
+                    handleSortChange("billingDate", event.target.value);
+                  }
                 }}
               >
                 <option value="">Not sorted</option>
@@ -114,7 +130,9 @@ const EmployeeFilters = ({
                 className="employee-filter__control"
                 value={filters.status}
                 onChange={(event) => {
-                  onFilterChange({ status: event.target.value });
+                  if (isStatus(event.target.value)) {
+                    onFilterChange({ status: event.target.value });
+                  }
                 }}
               >
                 <option value="all">Everyone</option>
