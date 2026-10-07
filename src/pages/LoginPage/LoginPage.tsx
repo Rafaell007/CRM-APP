@@ -1,30 +1,32 @@
-import { useState } from "react";
+import { useState, type SubmitEvent } from "react";
 import { useAuth } from "../../context/authContext";
 import "./LoginPage.css";
 import { Navigate } from "react-router";
 
 const LoginPage = () => {
   const { login, user } = useAuth();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrorMessage("");
     try {
       await login(email, password);
     } catch {
-      setErrorMessage("Wrong email od password");
+      setErrorMessage("Wrong email or password");
     }
   };
 
-if(user) {
-  return(
-      <Navigate to={user.role === "admin" ? "/admin" : "/waiter/tables"} replace />
-  )
-}
+  if (user) {
+    return (
+      <Navigate
+        to={user.role === "admin" ? "/admin" : "/waiter/tables"}
+        replace
+      />
+    );
+  }
 
   return (
     <div className="login">
