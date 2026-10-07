@@ -1,12 +1,17 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.jsx";
-import { store } from "./store/store.js";
+import App from "./App";
+import { store } from "./store/store";
 import { Provider } from "react-redux";
-import AuthProvider from "./context/AuthProvider.jsx";
+import AuthProvider from "./context/AuthProvider";
 
-createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  throw new Error('Root element "#root" not found');
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <Provider store={store}>
       <AuthProvider>
