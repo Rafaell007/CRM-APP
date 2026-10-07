@@ -23,7 +23,7 @@ export interface Table {
   number: string;
   seats: number;
   status: TableStatus;
-  reservationTime: string | null; // ISO date, null when not reserved
+  reservationTime: string | null; 
 }
 
 export interface Attendance {

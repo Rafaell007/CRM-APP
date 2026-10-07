@@ -1,10 +1,17 @@
 import "./EmployeeList.css";
 import EmployeeRow from "./EmployeeRow";
+import type { Employee } from "../../../../types/models";
+import type { ReactNode } from "react";
 
-const EmployeeList = ({ employees, children }) => {
+interface EmployeeListProps {
+  employees: Employee[];
+  children: ReactNode;
+}
+
+const EmployeeList = ({ employees, children }: EmployeeListProps) => {
   return (
     <section className="employee-list">
-      { children }
+      {children}
 
       <div className="employee-list__scroll">
         <div className="employee-list__head">
@@ -17,12 +24,7 @@ const EmployeeList = ({ employees, children }) => {
 
         <ul className="employee-list__rows">
           {employees.map((employee) => {
-            return (
-              <EmployeeRow
-                key={employee.id}
-                employee={employee}
-              />
-            );
+            return <EmployeeRow key={employee.id} employee={employee} />;
           })}
         </ul>
       </div>

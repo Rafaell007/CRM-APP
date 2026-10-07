@@ -66,7 +66,6 @@ const AdminLayout = () => {
 
         <p className="admin-layout__brand">Restaurant CRM</p>
 
-      
         <nav aria-label="Admin" onClick={() => setIsMenuOpen(false)}>
           <ul className="admin-layout__list">
             {ADMIN_NAV.map(({ to, label, Icon }) => (

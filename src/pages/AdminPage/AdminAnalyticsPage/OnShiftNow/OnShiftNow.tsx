@@ -1,6 +1,12 @@
 import "./OnShiftNow.css";
+import type { Employee, Shift } from "../../../../types/models";
 
-const OnShiftNow = ({ employees, activeShift }) => {
+interface OnShiftNowProps {
+  employees: Employee[];
+  activeShift: Shift | null;
+}
+
+const OnShiftNow = ({ employees, activeShift }: OnShiftNowProps) => {
   return (
     <section className="on-shift">
       <div className="on-shift__header">

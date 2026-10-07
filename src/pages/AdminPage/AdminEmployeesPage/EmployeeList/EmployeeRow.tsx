@@ -2,8 +2,14 @@ import { useState } from "react";
 import { formatDate } from "../../../../utils/formatDate";
 import { ChevronDown, Plus } from "lucide-react";
 import "./EmployeeRow.css";
+import type { Employee } from "../../../../types/models";
 
-const EmployeeRow = ({employee: { avatar, name, email, shift, employmentDate, billingDate} }) => {
+interface EmployeeRowProps {
+  employee: Employee;
+}
+
+const EmployeeRow = ({ employee }: EmployeeRowProps) => {
+  const { avatar, name, email, shift, employmentDate, billingDate } = employee;
   const [isOpen, setIsOpen] = useState(false);
 
   return (

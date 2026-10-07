@@ -1,4 +1,3 @@
-
 import { useGetEmployeesQuery, useGetShiftsQuery } from "../../../services/api";
 import { useEmployeesFilter } from "../../../hooks/useEmployeeFilters";
 
@@ -7,14 +6,15 @@ import EmployeeList from "./EmployeeList/EmployeeList";
 import EmployeeFilters from "./EmployeeFilters/EmployeeFilters";
 
 const AdminEmployeesPage = () => {
+  // Default to [] so the children always get a list, even before the data arrives
   const {
-    data: employees,
+    data: employees = [],
     isLoading: isLoadingEmployees,
     error: employeesError,
   } = useGetEmployeesQuery();
 
   const {
-    data: shifts,
+    data: shifts = [],
     isLoading: isLoadingShifts,
     error: shiftsError,
   } = useGetShiftsQuery();
@@ -26,7 +26,6 @@ const AdminEmployeesPage = () => {
     visibleEmployees,
     activeShift,
   } = useEmployeesFilter(employees, shifts);
-
 
   if (isLoadingEmployees || isLoadingShifts) return <p>Loading...</p>;
   if (employeesError || shiftsError)
@@ -46,9 +45,7 @@ const AdminEmployeesPage = () => {
         onFilterChange={onFilterChange}
       />
 
-      <EmployeeList
-        employees={visibleEmployees}
-      >
+      <EmployeeList employees={visibleEmployees}>
         <EmployeeFilters
           shifts={shifts}
           filters={filters}
