@@ -58,6 +58,13 @@
   color: var(--color-active-text);
 }
 
+.admin-layout__link--disabled,
+.admin-layout__link--disabled:hover {
+  border-color: var(--color-border);
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .admin-layout__content {
   flex: 1;
   min-width: 0;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, Outlet } from "react-router";
+import { Outlet } from "@tanstack/react-router";
 import {
   House,
   CalendarDays,
@@ -13,18 +13,19 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import NavItem, { type NavItemData } from "./NavItem";
 import "./AdminLayout.css";
 import { useAuth } from "../context/authContext";
 
-const ADMIN_NAV = [
-  { to: "/admin/home", label: "Home", Icon: House },
-  { to: "/admin/shift", label: "Shift", Icon: CalendarDays },
-  { to: "/admin/payroll", label: "Payroll", Icon: Wallet },
-  { to: "/admin/tasks", label: "Tasks", Icon: Workflow },
+const ADMIN_NAV: NavItemData[] = [
+  { label: "Home", Icon: House },
+  { label: "Shift", Icon: CalendarDays },
+  { label: "Payroll", Icon: Wallet },
+  { label: "Tasks", Icon: Workflow },
   { to: "/admin/analytics", label: "Analytics", Icon: ChartLine },
   { to: "/admin/employees", label: "Employees", Icon: UsersRound },
-  { to: "/admin/vacation", label: "Vacation", Icon: Luggage },
-  { to: "/admin/sick-days", label: "Sick days", Icon: Stethoscope },
+  { label: "Vacation", Icon: Luggage },
+  { label: "Sick days", Icon: Stethoscope },
 ];
 
 const AdminLayout = () => {
@@ -68,19 +69,9 @@ const AdminLayout = () => {
 
         <nav aria-label="Admin" onClick={() => setIsMenuOpen(false)}>
           <ul className="admin-layout__list">
-            {ADMIN_NAV.map(({ to, label, Icon }) => (
-              <li key={to}>
-                <NavLink
-                  to={to}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "admin-layout__link admin-layout__link--active"
-                      : "admin-layout__link"
-                  }
-                >
-                  <Icon className="admin-layout__icon" size={18} aria-hidden="true" />
-                  {label}
-                </NavLink>
+            {ADMIN_NAV.map((item) => (
+              <li key={item.label}>
+                <NavItem item={item} block="admin-layout" />
               </li>
             ))}
           </ul>

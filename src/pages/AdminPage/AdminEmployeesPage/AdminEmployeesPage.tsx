@@ -1,4 +1,5 @@
-import { useGetEmployeesQuery, useGetShiftsQuery } from "../../../services/api";
+import { useQuery } from "@tanstack/react-query";
+import { employeesQuery, shiftsQuery } from "../../../services/queries";
 import { useEmployeesFilter } from "../../../hooks/useEmployeeFilters";
 
 import EmployeeSummary from "./EmployeeSummary/EmployeeSummary";
@@ -9,15 +10,15 @@ const AdminEmployeesPage = () => {
   // Default to [] so the children always get a list, even before the data arrives
   const {
     data: employees = [],
-    isLoading: isLoadingEmployees,
+    isPending: isLoadingEmployees,
     error: employeesError,
-  } = useGetEmployeesQuery();
+  } = useQuery(employeesQuery);
 
   const {
     data: shifts = [],
-    isLoading: isLoadingShifts,
+    isPending: isLoadingShifts,
     error: shiftsError,
-  } = useGetShiftsQuery();
+  } = useQuery(shiftsQuery);
 
   const {
     filters,
