@@ -1,10 +1,10 @@
 import { useState, type SubmitEvent } from "react";
 import { useAuth } from "../../context/authContext";
 import "./LoginPage.css";
-import { Navigate } from "react-router";
 
+// After a successful login the /login route guard redirects to the user's home page
 const LoginPage = () => {
-  const { login, user } = useAuth();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -18,15 +18,6 @@ const LoginPage = () => {
       setErrorMessage("Wrong email or password");
     }
   };
-
-  if (user) {
-    return (
-      <Navigate
-        to={user.role === "admin" ? "/admin" : "/waiter/tables"}
-        replace
-      />
-    );
-  }
 
   return (
     <div className="login">

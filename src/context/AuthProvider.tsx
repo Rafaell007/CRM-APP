@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -16,6 +17,7 @@ interface AuthProviderProps {
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -38,7 +40,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = (email: string, password: string) =>
     signInWithEmailAndPassword(auth, email, password);
 
-  const logout = () => signOut(auth);
+  const logout = async () => {
+    await signOut(auth);
+    queryClient.clear(); // the next user must not see the previous user's cached data
+  };
 
   return (
     <AuthContext.Provider value={{ user, isLoading, login, logout }}>

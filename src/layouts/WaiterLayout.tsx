@@ -1,11 +1,12 @@
-import { NavLink, Outlet } from "react-router";
+import { Outlet } from "@tanstack/react-router";
 import { LayoutGrid, ClipboardList, ChartColumn } from "lucide-react";
+import NavItem, { type NavItemData } from "./NavItem";
 import "./WaiterLayout.css";
 
-const WAITER_NAV = [
+const WAITER_NAV: NavItemData[] = [
   { to: "/waiter/tables", label: "Tables", Icon: LayoutGrid },
-  { to: "/waiter/orders", label: "Orders", Icon: ClipboardList },
-  { to: "/waiter/statistics", label: "Statistics", Icon: ChartColumn },
+  { label: "Orders", Icon: ClipboardList },
+  { label: "Statistics", Icon: ChartColumn },
 ];
 
 const WaiterLayout = () => {
@@ -16,19 +17,9 @@ const WaiterLayout = () => {
 
         <nav aria-label="Waiter">
           <ul className="waiter-layout__list">
-            {WAITER_NAV.map(({ to, label, Icon }) => (
-              <li key={to}>
-                <NavLink
-                  to={to}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "waiter-layout__link waiter-layout__link--active"
-                      : "waiter-layout__link"
-                  }
-                >
-                  <Icon className="waiter-layout__icon" size={18} aria-hidden="true" />
-                  {label}
-                </NavLink>
+            {WAITER_NAV.map((item) => (
+              <li key={item.label}>
+                <NavItem item={item} block="waiter-layout" />
               </li>
             ))}
           </ul>

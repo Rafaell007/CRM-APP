@@ -1,9 +1,10 @@
-import { useGetTablesQuery } from "../../services/api";
+import { useQuery } from "@tanstack/react-query";
+import { tablesQuery } from "../../services/queries";
 
 const TablesPage = () => {
-  const { data: tables = [], isLoading, error } = useGetTablesQuery();
+  const { data: tables = [], isPending, error } = useQuery(tablesQuery);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isPending) return <p>Loading...</p>;
   if (error) return <p>Could not load the tables {error.message}</p>;
   return (
     <ul>

@@ -1,8 +1,9 @@
+import { useQuery } from "@tanstack/react-query";
 import {
-  useGetEmployeesQuery,
-  useGetShiftsQuery,
-  useGetAttendanceQuery,
-} from "../../../services/api";
+  attendanceQuery,
+  employeesQuery,
+  shiftsQuery,
+} from "../../../services/queries";
 import { useAnalytics } from "../../../hooks/useAnalytics";
 
 import AnalyticsOverview from "./AnalyticsOverview/AnalyticsOverview";
@@ -15,21 +16,21 @@ import "./AdminAnalyticsPage.css";
 const AdminAnalyticsPage = () => {
   const {
     data: employees,
-    isLoading: isLoadingEmployees,
+    isPending: isLoadingEmployees,
     error: employeesError,
-  } = useGetEmployeesQuery();
+  } = useQuery(employeesQuery);
 
   const {
     data: shifts,
-    isLoading: isLoadingShifts,
+    isPending: isLoadingShifts,
     error: shiftsError,
-  } = useGetShiftsQuery();
+  } = useQuery(shiftsQuery);
 
   const {
     data: attendance,
-    isLoading: isLoadingAttendance,
+    isPending: isLoadingAttendance,
     error: attendanceError,
-  } = useGetAttendanceQuery();
+  } = useQuery(attendanceQuery);
 
   const {
     activeShift,

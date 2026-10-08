@@ -57,6 +57,13 @@
   color: var(--color-active-text-inverse);
 }
 
+.waiter-layout__link--disabled,
+.waiter-layout__link--disabled:hover {
+  border-color: var(--color-border-dark);
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .waiter-layout__content {
   flex: 1;
   min-width: 0;

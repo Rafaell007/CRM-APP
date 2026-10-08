@@ -1,9 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./index.css";
 import App from "./App";
-import { store } from "./store/store";
-import { Provider } from "react-redux";
+import { queryClient } from "./lib/queryClient";
 import AuthProvider from "./context/AuthProvider";
 
 const rootElement = document.getElementById("root");
@@ -13,11 +14,11 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <App />
       </AuthProvider>
-    </Provider>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   </StrictMode>,
 );
-  

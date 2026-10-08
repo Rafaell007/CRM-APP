@@ -11,8 +11,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "allowJs": true,
-    "checkJs": false,
     "isolatedModules": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
