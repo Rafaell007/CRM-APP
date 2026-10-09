@@ -23,7 +23,7 @@ export interface Table {
   number: string;
   seats: number;
   status: TableStatus;
-  reservationTime: string | null; 
+  reservationTime: string | null;
 }
 
 export interface Attendance {
