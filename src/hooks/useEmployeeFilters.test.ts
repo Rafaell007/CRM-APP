@@ -1,23 +1,23 @@
 import { describe, it, expect } from "vitest";
 import { act, renderHook } from "@testing-library/react";
-import { useEmployeesFilter, INITIAL_FILTERS } from "./useEmployeeFilters";
+import { useEmployeeFilters, INITIAL_FILTERS } from "./useEmployeeFilters";
 import type { Employee, Shift } from "../types/models";
 import { makeEmployee } from "../test/factories";
 
-describe("useEmployeesFilter", () => {
+describe("useEmployeeFilters", () => {
   it("starts with the default filters", () => {
-    const { result } = renderHook(() => useEmployeesFilter());
+    const { result } = renderHook(() => useEmployeeFilters());
     expect(result.current.filters).toEqual(INITIAL_FILTERS);
   });
 
   it("survives being called before the data arrives", () => {
-    const { result } = renderHook(() => useEmployeesFilter());
+    const { result } = renderHook(() => useEmployeeFilters());
     expect(result.current.visibleEmployees).toEqual([]);
     expect(result.current.activeShift).toBeNull();
   });
 
   it("merges a change instead of replacing the whole object", () => {
-    const { result } = renderHook(() => useEmployeesFilter());
+    const { result } = renderHook(() => useEmployeeFilters());
 
     act(() => result.current.onFilterChange({ status: "idle" }));
 
@@ -27,7 +27,7 @@ describe("useEmployeesFilter", () => {
   });
 
   it("can change two fields at once", () => {
-    const { result } = renderHook(() => useEmployeesFilter());
+    const { result } = renderHook(() => useEmployeeFilters());
 
     act(() =>
       result.current.onFilterChange({
@@ -41,7 +41,7 @@ describe("useEmployeesFilter", () => {
   });
 
   it("resets every field back to the defaults", () => {
-    const { result } = renderHook(() => useEmployeesFilter());
+    const { result } = renderHook(() => useEmployeeFilters());
 
     act(() => result.current.onFilterChange({ status: "idle", search: "zoe" }));
     act(() => result.current.resetFilters());
@@ -63,7 +63,7 @@ describe("useEmployeesFilter", () => {
       }),
     ];
 
-    const { result } = renderHook(() => useEmployeesFilter(employees, shifts));
+    const { result } = renderHook(() => useEmployeeFilters(employees, shifts));
 
     expect(result.current.activeShift?.id).toBe("shiftA");
     expect(result.current.visibleEmployees).toHaveLength(1);

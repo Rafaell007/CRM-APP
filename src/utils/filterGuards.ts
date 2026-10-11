@@ -1,4 +1,4 @@
-import type { EmployeeFilters } from "./getVisibleEmployes";
+import type { EmployeeFilters } from "./getVisibleEmployees";
 
 // A <select> always gives a plain string; these check it before it reaches the filters
 

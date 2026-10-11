@@ -1,4 +1,4 @@
-import type { StaffSplitSegment } from "../../../../utils/getAnalytics";
+import type { StaffSplitSegment } from "../../../utils/getAnalytics";
 
 const SIZE = 160;
 const CENTER = SIZE / 2;

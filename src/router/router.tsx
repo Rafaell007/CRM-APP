@@ -7,12 +7,12 @@ import {
 import RootLayout from "../layouts/RootLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import WaiterLayout from "../layouts/WaiterLayout";
-import LoginPage from "../pages/LoginPage/LoginPage";
-import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
+import LoginPage from "../pages/LoginPage";
+import NotFoundPage from "../pages/NotFoundPage";
 import AdminEmployeesPage from "../pages/AdminPage/AdminEmployeesPage/AdminEmployeesPage";
 import AdminAnalyticsPage from "../pages/AdminPage/AdminAnalyticsPage/AdminAnalyticsPage";
-import TablesPage from "../pages/TableOrdersPage/TablesPage";
-import TableOrdersPage from "../pages/TableOrdersPage/TableOrdersPage";
+import TablesPage from "../pages/WaiterPage/TablesPage";
+import TableOrdersPage from "../pages/WaiterPage/TableOrdersPage";
 import type { AuthUser, UserRole } from "../types/models";
 
 interface RouterContext {

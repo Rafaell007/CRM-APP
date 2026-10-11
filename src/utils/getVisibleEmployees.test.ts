@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getVisibleEmployees, type EmployeeFilters } from "./getVisibleEmployes";
+import { getVisibleEmployees, type EmployeeFilters } from "./getVisibleEmployees";
 import type { Employee, Shift } from "../types/models";
 import { makeEmployee } from "../test/factories";
 

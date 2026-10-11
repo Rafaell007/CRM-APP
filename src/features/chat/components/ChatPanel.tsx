@@ -1,7 +1,7 @@
-import ChatMessageList from "../ChatMessageList/ChatMessageList";
-import ChatForm from "../ChatForm/ChatForm";
-import { STATUS_LABELS } from "../../chatConstants";
-import type { ChatMessage, ChatStatus } from "../../chatTypes";
+import ChatMessageList from "./ChatMessageList";
+import ChatForm from "./ChatForm";
+import { STATUS_LABELS } from "../chatConstants";
+import type { ChatMessage, ChatStatus } from "../chatTypes";
 
 const STATUS_DOT_COLORS: Record<ChatStatus, string> = {
   connecting: "bg-muted",

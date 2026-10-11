@@ -1,6 +1,6 @@
 import { Send } from "lucide-react";
-import { useChatForm } from "../../hooks/useChatForm";
-import type { ChatStatus } from "../../chatTypes";
+import { useChatForm } from "../hooks/useChatForm";
+import type { ChatStatus } from "../chatTypes";
 
 interface ChatFormProps {
   status: ChatStatus;

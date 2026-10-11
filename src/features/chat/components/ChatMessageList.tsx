@@ -1,6 +1,6 @@
-import { useScrollToBottom } from "../../hooks/useScrollToBottom";
-import { formatChatTime } from "../../utils/formatChatTime";
-import type { ChatMessage } from "../../chatTypes";
+import { useScrollToBottom } from "../hooks/useScrollToBottom";
+import { formatChatTime } from "../utils/formatChatTime";
+import type { ChatMessage } from "../chatTypes";
 
 const MESSAGE = "max-w-4/5 rounded border px-3 py-2";
 const MESSAGE_OWN = `${MESSAGE} self-end border-ink bg-ink text-white`;

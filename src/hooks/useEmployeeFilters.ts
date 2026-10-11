@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getActiveShift } from "../utils/getActiveShift";
-import { getVisibleEmployees, type EmployeeFilters } from "../utils/getVisibleEmployes";
+import { getVisibleEmployees, type EmployeeFilters } from "../utils/getVisibleEmployees";
 import type { Employee, Shift } from "../types/models"; 
 
 export const INITIAL_FILTERS: EmployeeFilters = {
@@ -11,7 +11,7 @@ export const INITIAL_FILTERS: EmployeeFilters = {
   sortDirection: "desc", // "desc" = newest first
 };
 
-export const useEmployeesFilter = (employees: Employee[] = [], shifts: Shift[] = []) => {
+export const useEmployeeFilters = (employees: Employee[] = [], shifts: Shift[] = []) => {
   const [filters, setFilters] = useState(INITIAL_FILTERS);
 
   const onFilterChange = (changes: Partial<EmployeeFilters>) => {

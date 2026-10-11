@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MessageCircle, X } from "lucide-react";
-import { useChat } from "../../hooks/useChat";
-import ChatPanel from "../ChatPanel/ChatPanel";
+import { useChat } from "../hooks/useChat";
+import ChatPanel from "./ChatPanel";
 
 interface ChatWidgetProps {
   author: string;

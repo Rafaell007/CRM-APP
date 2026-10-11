@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ListFilter, Search } from "lucide-react";
-import type { Shift } from "../../../../types/models";
-import type { EmployeeFilters } from "../../../../utils/getVisibleEmployes";
-import { isSortDirection, isStatus } from "../../../../utils/filterGuards";
+import type { Shift } from "../../../types/models";
+import type { EmployeeFilters } from "../../../utils/getVisibleEmployees";
+import { isSortDirection, isStatus } from "../../../utils/filterGuards";
 
 const FIELD = "flex flex-[1_1_160px] flex-col gap-1.5";
 const LABEL = "text-xs font-semibold text-muted";

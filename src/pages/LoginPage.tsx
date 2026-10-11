@@ -1,5 +1,5 @@
 import { useState, type SubmitEvent } from "react";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../context/authContext";
 
 const FIELD = "flex flex-col gap-1.5";
 const LABEL = "text-xs font-semibold text-muted";

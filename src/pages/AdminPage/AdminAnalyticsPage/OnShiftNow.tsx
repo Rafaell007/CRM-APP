@@ -1,4 +1,4 @@
-import type { Employee, Shift } from "../../../../types/models";
+import type { Employee, Shift } from "../../../types/models";
 
 interface OnShiftNowProps {
   employees: Employee[];

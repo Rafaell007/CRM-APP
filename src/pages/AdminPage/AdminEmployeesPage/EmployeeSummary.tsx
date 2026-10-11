@@ -1,6 +1,6 @@
-import { getAnalytics } from "../../../../utils/getAnalytics";
-import type { Employee, Shift } from "../../../../types/models";
-import type { EmployeeFilters } from "../../../../utils/getVisibleEmployes";
+import { getAnalytics } from "../../../utils/getAnalytics";
+import type { Employee, Shift } from "../../../types/models";
+import type { EmployeeFilters } from "../../../utils/getVisibleEmployees";
 
 interface EmployeeSummaryProps {
   employees: Employee[];

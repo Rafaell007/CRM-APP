@@ -6,11 +6,11 @@ import {
 } from "../../../services/queries";
 import { useAnalytics } from "../../../hooks/useAnalytics";
 
-import AnalyticsOverview from "./AnalyticsOverview/AnalyticsOverview";
-import AttendanceTrend from "./AttendanceTrend/AttendanceTrend";
-import StaffSplit from "./StaffSplit/StaffSplit";
-import ShiftCoverage from "./ShiftCoverage/ShiftCoverage";
-import OnShiftNow from "./OnShiftNow/OnShiftNow";
+import AnalyticsOverview from "./AnalyticsOverview";
+import AttendanceTrend from "./AttendanceTrend";
+import StaffSplit from "./StaffSplit";
+import ShiftCoverage from "./ShiftCoverage";
+import OnShiftNow from "./OnShiftNow";
 
 const AdminAnalyticsPage = () => {
   const {
