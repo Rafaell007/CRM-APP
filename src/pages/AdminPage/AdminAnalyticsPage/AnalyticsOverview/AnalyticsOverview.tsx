@@ -1,5 +1,4 @@
 import { UsersRound, Clock, Timer, Award } from "lucide-react";
-import "./AnalyticsOverview.css";
 import type { AnalyticsStats } from "../../../../utils/getAnalytics";
 
 interface AnalyticsOverviewProps {
@@ -24,24 +23,28 @@ const AnalyticsOverview = ({ stats, hoursThisMonth }: AnalyticsOverviewProps) =>
 
   return (
     <>
-      <h1 className="analytics-overview__title">Analytics</h1>
+      <h1 className="mb-5 text-xl font-bold">Analytics</h1>
 
-      <div className="analytics-overview__cards">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         {cards.map(({ label, value, unit, hint, Icon }) => (
-          <div key={label} className="analytics-overview__card">
-            <div className="analytics-overview__top">
-              <p className="analytics-overview__label">{label}</p>
-              <span className="analytics-overview__icon">
+          <div key={label} className="rounded-xl bg-ink px-5 py-4.5 text-white">
+            <div className="mb-4.5 flex items-center justify-between gap-2">
+              <p className="text-xs font-semibold text-muted-light">{label}</p>
+              <span className="flex size-7 items-center justify-center rounded-lg bg-raised-dark">
                 <Icon size={16} aria-hidden="true" />
               </span>
             </div>
 
-            <p className="analytics-overview__value">
+            <p className="flex items-baseline gap-1.5 text-4xl leading-none font-bold tracking-number md:text-5xl">
               {value}
-              {unit && <span className="analytics-overview__unit">{unit}</span>}
+              {unit && (
+                <span className="text-md font-semibold tracking-normal text-muted-light">
+                  {unit}
+                </span>
+              )}
             </p>
 
-            {hint && <p className="analytics-overview__hint">{hint}</p>}
+            {hint && <p className="mt-2 text-2xs font-semibold text-muted-light">{hint}</p>}
           </div>
         ))}
       </div>

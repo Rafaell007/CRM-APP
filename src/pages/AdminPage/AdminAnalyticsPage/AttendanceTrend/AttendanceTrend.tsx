@@ -1,5 +1,4 @@
 import { TrendingUp, TrendingDown } from "lucide-react";
-import "./AttendanceTrend.css";
 import type { YearSeries } from "../../../../utils/getAnalytics";
 
 const WIDTH = 640;
@@ -9,6 +8,15 @@ const PADDING = 14;
 const MONTH_LABELS = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
+// series[0] is the current year (solid), series[1] the year before (dashed, muted)
+const YEAR_STYLES = [
+  { dot: "bg-ink", line: { className: "stroke-ink", strokeWidth: 2.5 } },
+  {
+    dot: "bg-chart-muted",
+    line: { className: "stroke-chart-muted", strokeWidth: 2, strokeDasharray: "5 5" },
+  },
 ];
 
 // Months with no record are skipped, so the line stops instead of
@@ -40,18 +48,14 @@ const AttendanceTrend = ({ series, change }: AttendanceTrendProps) => {
   const isUp = hasChange && change >= 0;
 
   return (
-    <section className="attendance-trend">
-      <div className="attendance-trend__header">
+    <section className="rounded-xl bg-panel px-6 py-5">
+      <div className="mb-5 flex items-start justify-between gap-4">
         <div>
-          <h2 className="attendance-trend__title">Staff hours per month</h2>
+          <h2 className="mb-1.5 text-md font-bold">Staff hours per month</h2>
           {hasChange && (
-            <p className="attendance-trend__note">
+            <p className="flex items-center gap-1.5 text-xs text-muted">
               <span
-                className={
-                  isUp
-                    ? "attendance-trend__change"
-                    : "attendance-trend__change attendance-trend__change--down"
-                }
+                className={`inline-flex items-center gap-1 font-bold ${isUp ? "text-success" : "text-danger"}`}
               >
                 {isUp ? (
                   <TrendingUp size={14} aria-hidden="true" />
@@ -66,16 +70,10 @@ const AttendanceTrend = ({ series, change }: AttendanceTrendProps) => {
           )}
         </div>
 
-        <ul className="attendance-trend__legend">
+        <ul className="flex gap-3.5">
           {series.map(({ year }, index) => (
-            <li key={year} className="attendance-trend__legend-item">
-              <span
-                className={
-                  index === 0
-                    ? "attendance-trend__dot"
-                    : "attendance-trend__dot attendance-trend__dot--muted"
-                }
-              />
+            <li key={year} className="flex items-center gap-1.5 text-xs text-muted">
+              <span className={`size-2 rounded-full ${YEAR_STYLES[index].dot}`} />
               {year}
             </li>
           ))}
@@ -83,11 +81,11 @@ const AttendanceTrend = ({ series, change }: AttendanceTrendProps) => {
       </div>
 
       {allValues.length === 0 ? (
-        <p className="attendance-trend__empty">No attendance records yet</p>
+        <p className="py-15 text-center text-muted">No attendance records yet</p>
       ) : (
         <>
           <svg
-            className="attendance-trend__svg"
+            className="h-50 w-full"
             viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
             preserveAspectRatio="none"
             role="img"
@@ -100,7 +98,7 @@ const AttendanceTrend = ({ series, change }: AttendanceTrendProps) => {
                 x2={WIDTH}
                 y1={HEIGHT * step}
                 y2={HEIGHT * step}
-                className="attendance-trend__grid"
+                className="stroke-border"
                 vectorEffect="non-scaling-stroke"
               />
             ))}
@@ -109,17 +107,16 @@ const AttendanceTrend = ({ series, change }: AttendanceTrendProps) => {
               <path
                 key={year}
                 d={toPath(values, highest)}
-                className={
-                  index === 0
-                    ? "attendance-trend__line"
-                    : "attendance-trend__line attendance-trend__line--muted"
-                }
+                {...YEAR_STYLES[index].line}
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 vectorEffect="non-scaling-stroke"
               />
             ))}
           </svg>
 
-          <div className="attendance-trend__months">
+          <div className="mt-2 flex justify-between text-2xs text-muted">
             {MONTH_LABELS.map((month) => (
               <span key={month}>{month}</span>
             ))}

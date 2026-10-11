@@ -1,34 +1,73 @@
-:root {
-  --color-page-bg: #ebebeb;
+@import "tailwindcss";
+
+/* The project's design tokens. Each one becomes a class, e.g. --color-panel -> bg-panel */
+@theme {
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-page: #ebebeb;
   --color-surface: #ffffff;
+  --color-panel: #f7f7f7;
+  --color-subtle: #ececec;
+  --color-subtle-strong: #dedede;
   --color-border: #e2e2e2;
-  --color-text: #1a1a1a;
-  --color-active-bg: #1a1a1a;
-  --color-active-text: #ffffff;
-  --color-surface-dark: #1a1a1a;
+  --color-ink: #1a1a1a;
+  --color-ink-soft: #6b6b6b;
+  --color-muted: #a3a3a3;
+  --color-muted-light: #b5b5b5;
+  --color-raised-dark: #2e2e2e;
   --color-border-dark: #333333;
-  --color-text-inverse: #e5e5e5;
-  --color-active-bg-inverse: #ffffff;
-  --color-active-text-inverse: #1a1a1a;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --radius: 4px;
-  --sidebar-width: 240px;
-}
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+  --color-ink-inverse: #e5e5e5;
+  --color-chart-muted: #c4c4c4;
+  --color-chart-bar: #d6d6d6;
+  --color-success: #2e7d5b;
+  --color-danger: #e5484d;
+
+  /* The design's own type scale. No line heights on purpose:
+     text keeps the browser's normal line height, as before the migration */
+  --text-*: initial;
+  --text-2xs: 11px;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-md: 14px;
+  --text-base: 15px;
+  --text-lg: 16px;
+  --text-xl: 18px;
+  --text-2xl: 20px;
+  --text-3xl: 30px;
+  --text-4xl: 32px;
+  --text-5xl: 36px;
+  --text-6xl: 38px;
+  --text-7xl: 56px;
+
+  --tracking-brand: 2px;
+  --tracking-number: -1px;
+
+  --shadow-popover: 0 8px 24px rgb(0 0 0 / 0.12);
+  --shadow-fab: 0 4px 12px rgb(0 0 0 / 0.2);
 }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--color-page-bg);
-  color: var(--color-text);
+/* The employee table's columns, shared by its header and every row */
+@utility grid-cols-employees {
+  grid-template-columns: minmax(220px, 1fr) 80px 170px 170px 80px;
 }
 
-#root {
-  min-height: 100vh;
+@layer base {
+  body {
+    background-color: var(--color-page);
+    color: var(--color-ink);
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  /* Tailwind's reset removes the pointer from buttons; every clickable button had one */
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* The browser's own clear "x" in search inputs */
+  input[type="search"]::-webkit-search-cancel-button {
+    cursor: pointer;
+  }
 }

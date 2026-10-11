@@ -11,7 +11,6 @@ import AttendanceTrend from "./AttendanceTrend/AttendanceTrend";
 import StaffSplit from "./StaffSplit/StaffSplit";
 import ShiftCoverage from "./ShiftCoverage/ShiftCoverage";
 import OnShiftNow from "./OnShiftNow/OnShiftNow";
-import "./AdminAnalyticsPage.css";
 
 const AdminAnalyticsPage = () => {
   const {
@@ -61,12 +60,12 @@ const AdminAnalyticsPage = () => {
     <>
       <AnalyticsOverview stats={stats} hoursThisMonth={hours.current} />
 
-      <div className="admin-analytics__panels admin-analytics__panels--wide">
+      <div className="mt-4 grid gap-4 lg:grid-cols-[2fr_1fr] lg:items-start">
         <AttendanceTrend series={series} change={hours.change} />
         <StaffSplit segments={staffSplit} total={stats.total} />
       </div>
 
-      <div className="admin-analytics__panels">
+      <div className="mt-4 grid gap-4 lg:grid-cols-2 lg:items-start">
         <ShiftCoverage
           coverage={coverage}
           uncoveredHours={uncoveredHours}

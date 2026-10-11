@@ -1,4 +1,3 @@
-import "./OnShiftNow.css";
 import type { Employee, Shift } from "../../../../types/models";
 
 interface OnShiftNowProps {
@@ -8,24 +7,26 @@ interface OnShiftNowProps {
 
 const OnShiftNow = ({ employees, activeShift }: OnShiftNowProps) => {
   return (
-    <section className="on-shift">
-      <div className="on-shift__header">
-        <h2 className="on-shift__title">Working now</h2>
+    <section className="rounded-xl bg-panel px-6 py-5">
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <h2 className="text-md font-bold">Working now</h2>
         {activeShift && (
-          <span className="on-shift__badge">Shift {activeShift.name}</span>
+          <span className="rounded-full bg-ink px-2.5 py-0.75 text-2xs font-semibold text-white">
+            Shift {activeShift.name}
+          </span>
         )}
       </div>
 
       {employees.length === 0 ? (
-        <p className="on-shift__empty">Nobody is on shift right now</p>
+        <p className="py-10 text-center text-muted">Nobody is on shift right now</p>
       ) : (
-        <ul className="on-shift__list">
+        <ul className="flex flex-col gap-2">
           {employees.map(({ id, avatar, name, email }) => (
-            <li key={id} className="on-shift__item">
-              <img className="on-shift__avatar" src={avatar} alt="" />
+            <li key={id} className="flex items-center gap-3 rounded-lg bg-surface px-3 py-2.5">
+              <img className="size-9 rounded-full object-cover" src={avatar} alt="" />
               <div>
-                <p className="on-shift__name">{name}</p>
-                <p className="on-shift__email">{email}</p>
+                <p className="text-md font-semibold">{name}</p>
+                <p className="text-xs text-muted">{email}</p>
               </div>
             </li>
           ))}

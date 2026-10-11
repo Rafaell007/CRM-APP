@@ -1,4 +1,3 @@
-import "./EmployeeList.css";
 import EmployeeRow from "./EmployeeRow";
 import type { Employee } from "../../../../types/models";
 import type { ReactNode } from "react";
@@ -10,11 +9,11 @@ interface EmployeeListProps {
 
 const EmployeeList = ({ employees, children }: EmployeeListProps) => {
   return (
-    <section className="employee-list">
+    <section className="mt-6 scroll-mt-4 rounded-xl bg-panel p-3">
       {children}
 
-      <div className="employee-list__scroll">
-        <div className="employee-list__head">
+      <div className="overflow-x-auto">
+        <div className="hidden items-center gap-4 px-4 pb-2.5 text-sm text-muted lg:grid lg:grid-cols-employees">
           <span>Employee</span>
           <span>Shift</span>
           <span>Employment date</span>
@@ -22,7 +21,7 @@ const EmployeeList = ({ employees, children }: EmployeeListProps) => {
           <span>Bonus</span>
         </div>
 
-        <ul className="employee-list__rows">
+        <ul className="flex flex-col gap-2 lg:gap-0">
           {employees.map((employee) => {
             return <EmployeeRow key={employee.id} employee={employee} />;
           })}

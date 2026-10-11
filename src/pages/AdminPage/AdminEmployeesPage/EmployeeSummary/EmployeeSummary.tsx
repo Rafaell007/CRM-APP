@@ -1,4 +1,3 @@
-import "./EmployeeSummary.css";
 import { getAnalytics } from "../../../../utils/getAnalytics";
 import type { Employee, Shift } from "../../../../types/models";
 import type { EmployeeFilters } from "../../../../utils/getVisibleEmployes";
@@ -34,15 +33,18 @@ const EmployeeSummary = ({
 
   return (
     <>
-      <h1 className="employee-summary__title">Employees</h1>
-      <div className="employee-summary__cards">
+      <h1 className="mb-5 text-xl font-bold">Employees</h1>
+      <div className="flex flex-col gap-4 md:flex-row">
         {summary.map(({ label, value, onClick }) => (
-          <div key={label} className="employee-summary__card">
-            <p className="employee-summary__label">{label}</p>
-            <div className="employee-summary__row">
-              <span className="employee-summary__count">{value}</span>
-              <span className="employee-summary__line" />
-              <button className="employee-summary__button" onClick={onClick}>
+          <div key={label} className="rounded-xl bg-panel px-6 py-5 md:flex-1">
+            <p className="mb-3 text-xs font-semibold text-muted">{label}</p>
+            <div className="flex items-center gap-4">
+              <span className="text-6xl leading-none font-bold tracking-number">{value}</span>
+              <span className="h-px flex-1 bg-ink" />
+              <button
+                className="rounded-md bg-surface px-4.5 py-2 text-md text-ink hover:bg-subtle"
+                onClick={onClick}
+              >
                 View
               </button>
             </div>
