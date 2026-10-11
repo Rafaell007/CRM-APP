@@ -4,6 +4,7 @@ import {
   createRouter,
   redirect,
 } from "@tanstack/react-router";
+import RootLayout from "../layouts/RootLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import WaiterLayout from "../layouts/WaiterLayout";
 import LoginPage from "../pages/LoginPage/LoginPage";
@@ -24,6 +25,7 @@ const requireRole = (user: AuthUser | null, role: UserRole) => {
 };
 
 const rootRoute = createRootRouteWithContext<RouterContext>()({
+  component: RootLayout,
   notFoundComponent: NotFoundPage,
 });
 

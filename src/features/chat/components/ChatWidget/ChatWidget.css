@@ -1,0 +1,23 @@
+.chat-widget {
+  position: fixed;
+  right: var(--space-md);
+  bottom: var(--space-md);
+  z-index: 30; /* above the admin mobile menu (10 / 20) */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-sm);
+}
+
+.chat-widget__toggle {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-active-bg);
+  color: var(--color-active-text);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}

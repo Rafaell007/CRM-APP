@@ -1,4 +1,4 @@
-import type { ChatMessage } from "./chatTypes";
+import type { ChatMessage } from "../chatTypes";
 
 const isChatMessage = (value: unknown): value is ChatMessage =>
   typeof value === "object" &&

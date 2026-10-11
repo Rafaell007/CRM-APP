@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { parseChatMessage } from "./parseChatMessage";
-import type { ChatMessage } from "./chatTypes";
+import type { ChatMessage } from "../chatTypes";
 
 const message: ChatMessage = {
   id: "1",
