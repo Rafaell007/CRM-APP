@@ -6,6 +6,12 @@ works with tables and orders.
 
 **Live demo:** https://crm-app-iota-one.vercel.app
 
+**Demo admin account:**
+
+| Email | Password |
+| ----- | -------- |
+| `admin@restaurant.com` | `admin123` |
+
 ---
 
 ## Functionality
