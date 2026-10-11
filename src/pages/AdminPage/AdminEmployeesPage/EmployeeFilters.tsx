@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ListFilter, Search } from "lucide-react";
+import Collapse from "../../../components/Collapse";
 import type { Shift } from "../../../types/models";
 import type { EmployeeFilters } from "../../../utils/getVisibleEmployees";
 import { isSortDirection, isStatus } from "../../../utils/filterGuards";
@@ -69,92 +70,86 @@ const EmployeeFilters = ({
         </div>
       </div>
 
-      {/* height: auto cannot be animated, so the panel is a grid whose single row
-          grows from 0fr to 1fr; the inner wrapper is what gets clipped */}
-      <div
-        className={`grid transition-[grid-template-rows] duration-250 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
-      >
-        <div className="min-h-0 overflow-hidden">
-          <div className="mb-3 flex flex-wrap gap-x-4 gap-y-3 rounded-lg bg-surface p-4">
-            <label className={FIELD}>
-              <span className={LABEL}>Shift</span>
-              <select
-                className={SELECT}
-                value={filters.shiftId}
-                onChange={(event) => {
-                  onFilterChange({ shiftId: event.target.value });
-                }}
-              >
-                <option value="all">All shifts</option>
-                {shifts.map((shift) => (
-                  <option value={shift.id} key={shift.id}>
-                    Shift {shift.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className={FIELD}>
-              <span className={LABEL}>Employment date</span>
-              <select
-                className={SELECT}
-                value={getSortValue("employmentDate")}
-                onChange={(event) => {
-                  if (isSortDirection(event.target.value)) {
-                    handleSortChange("employmentDate", event.target.value);
-                  }
-                }}
-              >
-                <option value="">Not sorted</option>
-                <option value="desc">Newest first</option>
-                <option value="asc">Oldest first</option>
-              </select>
-            </label>
-
-            <label className={FIELD}>
-              <span className={LABEL}>Billing date</span>
-              <select
-                className={SELECT}
-                value={getSortValue("billingDate")}
-                onChange={(event) => {
-                  if (isSortDirection(event.target.value)) {
-                    handleSortChange("billingDate", event.target.value);
-                  }
-                }}
-              >
-                <option value="">Not sorted</option>
-                <option value="desc">Newest first</option>
-                <option value="asc">Oldest first</option>
-              </select>
-            </label>
-
-            <label className={FIELD}>
-              <span className={LABEL}>Status</span>
-              <select
-                className={SELECT}
-                value={filters.status}
-                onChange={(event) => {
-                  if (isStatus(event.target.value)) {
-                    onFilterChange({ status: event.target.value });
-                  }
-                }}
-              >
-                <option value="all">Everyone</option>
-                <option value="onShift">On shift</option>
-                <option value="idle">Idle</option>
-              </select>
-            </label>
-
-            <button
-              type="button"
-              className="ml-auto shrink-0 self-end rounded-md border border-border px-3.5 py-2 text-md text-ink hover:bg-subtle"
-              onClick={onReset}
+      <Collapse isOpen={isOpen}>
+        <div className="mb-3 flex flex-wrap gap-x-4 gap-y-3 rounded-lg bg-surface p-4">
+          <label className={FIELD}>
+            <span className={LABEL}>Shift</span>
+            <select
+              className={SELECT}
+              value={filters.shiftId}
+              onChange={(event) => {
+                onFilterChange({ shiftId: event.target.value });
+              }}
             >
-              Clear all
-            </button>
-          </div>
+              <option value="all">All shifts</option>
+              {shifts.map((shift) => (
+                <option value={shift.id} key={shift.id}>
+                  Shift {shift.name}
+                </option>
+              ))}
+            </select>
+          </label>
+  
+          <label className={FIELD}>
+            <span className={LABEL}>Employment date</span>
+            <select
+              className={SELECT}
+              value={getSortValue("employmentDate")}
+              onChange={(event) => {
+                if (isSortDirection(event.target.value)) {
+                  handleSortChange("employmentDate", event.target.value);
+                }
+              }}
+            >
+              <option value="">Not sorted</option>
+              <option value="desc">Newest first</option>
+              <option value="asc">Oldest first</option>
+            </select>
+          </label>
+  
+          <label className={FIELD}>
+            <span className={LABEL}>Billing date</span>
+            <select
+              className={SELECT}
+              value={getSortValue("billingDate")}
+              onChange={(event) => {
+                if (isSortDirection(event.target.value)) {
+                  handleSortChange("billingDate", event.target.value);
+                }
+              }}
+            >
+              <option value="">Not sorted</option>
+              <option value="desc">Newest first</option>
+              <option value="asc">Oldest first</option>
+            </select>
+          </label>
+  
+          <label className={FIELD}>
+            <span className={LABEL}>Status</span>
+            <select
+              className={SELECT}
+              value={filters.status}
+              onChange={(event) => {
+                if (isStatus(event.target.value)) {
+                  onFilterChange({ status: event.target.value });
+                }
+              }}
+            >
+              <option value="all">Everyone</option>
+              <option value="onShift">On shift</option>
+              <option value="idle">Idle</option>
+            </select>
+          </label>
+  
+          <button
+            type="button"
+            className="ml-auto shrink-0 self-end rounded-md border border-border px-3.5 py-2 text-md text-ink hover:bg-subtle"
+            onClick={onReset}
+          >
+            Clear all
+          </button>
         </div>
-      </div>
+      </Collapse>
     </>
   );
 };
