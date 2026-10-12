@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { employeesQuery, shiftsQuery } from "../../../services/queries";
+import { employeesQuery, shiftsQuery } from "../../../api/queries";
 import { useEmployeeFilters } from "../../../hooks/useEmployeeFilters";
 
 import EmployeeSummary from "./EmployeeSummary";

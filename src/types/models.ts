@@ -1,5 +1,5 @@
 export interface Employee {
-  id: string; // Firestore document ID (added in api.js)
+  id: string; // Firestore document ID (added in api/firebase/mappers.ts)
   name: string;
   email: string;
   avatar: string;

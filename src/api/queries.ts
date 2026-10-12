@@ -4,7 +4,7 @@ import {
   fetchEmployees,
   fetchShifts,
   fetchTables,
-} from "./api";
+} from "./firebase/fetchers";
 
 // Cache key + fetch function in one place; components use them with useQuery()
 export const shiftsQuery = queryOptions({

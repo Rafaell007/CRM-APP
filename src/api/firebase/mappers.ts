@@ -3,7 +3,7 @@ import {
   type DocumentData,
   type QueryDocumentSnapshot,
 } from "firebase/firestore";
-import type { Attendance, Employee, Shift, Table } from "../types/models";
+import type { Attendance, Employee, Shift, Table } from "../../types/models";
 
 // Firestore returns untyped data; these functions are the one place
 // where it becomes our typed models

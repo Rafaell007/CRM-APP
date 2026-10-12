@@ -6,7 +6,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../services/firebase";
+import { auth, db } from "../api/firebase/client";
 import { AuthContext } from "./authContext";
 import type { AuthUser } from "../types/models";
 

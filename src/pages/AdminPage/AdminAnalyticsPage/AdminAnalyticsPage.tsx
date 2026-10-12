@@ -3,7 +3,7 @@ import {
   attendanceQuery,
   employeesQuery,
   shiftsQuery,
-} from "../../../services/queries";
+} from "../../../api/queries";
 import { useAnalytics } from "../../../hooks/useAnalytics";
 
 import AnalyticsOverview from "./AnalyticsOverview";

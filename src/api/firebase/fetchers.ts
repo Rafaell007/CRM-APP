@@ -1,7 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "./firebase";
-import { toAttendance, toEmployee, toShift, toTable } from "./firestoreMappers";
-import type { Attendance, Employee, Shift, Table } from "../types/models";
+import { db } from "./client";
+import { toAttendance, toEmployee, toShift, toTable } from "./mappers";
+import type { Attendance, Employee, Shift, Table } from "../../types/models";
 
 export const fetchShifts = async (): Promise<Shift[]> => {
   const snapshot = await getDocs(collection(db, "shifts"));

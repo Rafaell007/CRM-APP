@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { tablesQuery } from "../../services/queries";
+import { tablesQuery } from "../../api/queries";
 
 const TablesPage = () => {
   const { data: tables = [], isPending, error } = useQuery(tablesQuery);
