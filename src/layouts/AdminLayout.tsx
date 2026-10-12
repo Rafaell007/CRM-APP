@@ -88,7 +88,9 @@ const AdminLayout = () => {
         </button>
       </aside>
 
-      <main className="min-w-0 flex-1 p-4 md:p-6">
+      {/* From md the content area is exactly one screen tall and scrolls by
+          itself, so a page can split that height (e.g. a table that fills the rest) */}
+      <main className="min-w-0 flex-1 p-4 md:h-screen md:overflow-y-auto md:p-6">
         <Outlet />
       </main>
     </div>

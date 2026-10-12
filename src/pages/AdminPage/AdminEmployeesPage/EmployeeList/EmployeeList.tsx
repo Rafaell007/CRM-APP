@@ -8,12 +8,16 @@ interface EmployeeListProps {
 }
 
 const EmployeeList = ({ employees, children }: EmployeeListProps) => {
+  // From md the table fills the space the page gives it (min 20rem, so a
+  // short window never squeezes it) and only the rows scroll
   return (
-    <section className="mt-6 scroll-mt-4 rounded-xl bg-panel p-3">
-      {children}
+    <section className="mt-6 flex scroll-mt-4 flex-col rounded-xl bg-panel p-3 md:min-h-80 md:flex-1">
+      {/* Filters stay visible: above the rows' scroll area on desktop,
+          stuck to the top of the screen when the whole page scrolls (mobile) */}
+      <div className="sticky top-0 z-20 bg-panel">{children}</div>
 
-      <div className="overflow-x-auto">
-        <div className="hidden items-center gap-4 px-4 pb-2.5 text-sm text-muted lg:grid lg:grid-cols-employees">
+      <div className="overflow-auto md:min-h-0 md:flex-1">
+        <div className="sticky top-0 z-10 hidden items-center gap-4 bg-panel px-4 pb-2.5 text-sm text-muted lg:grid lg:grid-cols-employees">
           <span>Employee</span>
           <span>Shift</span>
           <span>Employment date</span>

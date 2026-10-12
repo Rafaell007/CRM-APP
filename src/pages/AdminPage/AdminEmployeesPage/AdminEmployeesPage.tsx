@@ -38,7 +38,7 @@ const AdminEmployeesPage = () => {
     );
 
   return (
-    <>
+    <div className="flex flex-col md:h-full">
       <EmployeeSummary
         employees={employees}
         activeShift={activeShift}
@@ -54,7 +54,7 @@ const AdminEmployeesPage = () => {
           onReset={resetFilters}
         />
       </EmployeeList>
-    </>
+    </div>
   );
 };
 
