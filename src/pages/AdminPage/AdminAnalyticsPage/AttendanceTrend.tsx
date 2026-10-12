@@ -1,5 +1,5 @@
 import { TrendingUp, TrendingDown } from "lucide-react";
-import type { YearSeries } from "../../../utils/getAnalytics";
+import type { YearSeries } from "./utils/getAnalytics";
 
 const WIDTH = 640;
 const HEIGHT = 200;

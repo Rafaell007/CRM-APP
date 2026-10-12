@@ -4,7 +4,7 @@ import {
   employeesQuery,
   shiftsQuery,
 } from "../../../api/queries";
-import { useAnalytics } from "../../../hooks/useAnalytics";
+import { useAnalyticsDashboard } from "./hooks/useAnalyticsDashboard";
 
 import AnalyticsOverview from "./AnalyticsOverview";
 import AttendanceTrend from "./AttendanceTrend";
@@ -41,7 +41,7 @@ const AdminAnalyticsPage = () => {
     uncoveredHours,
     nowPosition,
     onShiftEmployees,
-  } = useAnalytics(employees, shifts, attendance);
+  } = useAnalyticsDashboard(employees, shifts, attendance);
 
   if (isLoadingEmployees || isLoadingShifts || isLoadingAttendance)
     return <p>Loading...</p>;

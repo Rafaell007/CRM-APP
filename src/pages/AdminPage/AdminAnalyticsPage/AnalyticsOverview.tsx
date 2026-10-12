@@ -1,5 +1,5 @@
 import { UsersRound, Clock, Timer, Award } from "lucide-react";
-import type { AnalyticsStats } from "../../../utils/getAnalytics";
+import type { AnalyticsStats } from "./utils/getAnalytics";
 
 interface AnalyticsOverviewProps {
   stats: AnalyticsStats;

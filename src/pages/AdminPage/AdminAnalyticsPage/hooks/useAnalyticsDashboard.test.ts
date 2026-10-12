@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { renderHook } from "@testing-library/react";
-import { useAnalytics } from "./useAnalytics";
-import type { Attendance, Employee, Shift } from "../types/models";
-import { makeEmployee } from "../test/factories";
+import { useAnalyticsDashboard } from "./useAnalyticsDashboard";
+import type { Attendance, Employee, Shift } from "../../../../types/models";
+import { makeEmployee } from "../../../../test/factories";
 
 const allDay: Shift = { id: "allDay", name: "D", startTime: "00:00", endTime: "23:59" };
 const shifts: Shift[] = [allDay];
@@ -13,9 +13,9 @@ const employees: Employee[] = [
   makeEmployee({ id: "2", name: "Tina Lawson", shiftId: "allDay", employmentDate: "2022-01-01" }),
 ];
 
-describe("useAnalytics", () => {
+describe("useAnalyticsDashboard", () => {
   it("survives being called before the data arrives", () => {
-    const { result } = renderHook(() => useAnalytics());
+    const { result } = renderHook(() => useAnalyticsDashboard());
 
     expect(result.current.activeShift).toBeNull();
     expect(result.current.stats.total).toBe(0);
@@ -24,7 +24,7 @@ describe("useAnalytics", () => {
   });
 
   it("wires the active shift through to every value that depends on it", () => {
-    const { result } = renderHook(() => useAnalytics(employees, shifts, attendance));
+    const { result } = renderHook(() => useAnalyticsDashboard(employees, shifts, attendance));
 
     expect(result.current.activeShift?.id).toBe("allDay");
     expect(result.current.stats.onShift).toBe(2);
@@ -35,7 +35,7 @@ describe("useAnalytics", () => {
 
   it("keeps the same result object while the data does not change", () => {
     const { result, rerender } = renderHook(
-      ({ list }) => useAnalytics(list, shifts, attendance),
+      ({ list }) => useAnalyticsDashboard(list, shifts, attendance),
       { initialProps: { list: employees } },
     );
     const first = result.current;
@@ -47,7 +47,7 @@ describe("useAnalytics", () => {
 
   it("recomputes when the data changes", () => {
     const { result, rerender } = renderHook(
-      ({ list }) => useAnalytics(list, shifts, attendance),
+      ({ list }) => useAnalyticsDashboard(list, shifts, attendance),
       { initialProps: { list: employees } },
     );
 

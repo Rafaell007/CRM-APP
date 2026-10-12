@@ -1,4 +1,4 @@
-import type { ShiftCoverageRow } from "../../../utils/getAnalytics";
+import type { ShiftCoverageRow } from "./utils/getAnalytics";
 import type { Shift } from "../../../types/models";
 
 const HOUR_MARKS = [0, 6, 12, 18, 24];

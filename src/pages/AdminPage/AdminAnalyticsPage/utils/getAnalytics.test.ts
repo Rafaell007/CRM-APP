@@ -9,8 +9,8 @@ import {
   getMonthlySeries,
   getHoursSummary,
 } from "./getAnalytics";
-import type { Attendance, Employee, Shift } from "../types/models";
-import { makeAttendance, makeEmployee } from "../test/factories";
+import type { Attendance, Employee, Shift } from "../../../../types/models";
+import { makeAttendance, makeEmployee } from "../../../../test/factories";
 
 // 7 September 2026, 12:00 local time - every test runs on this clock
 const NOW = new Date(2026, 8, 7, 12, 0);

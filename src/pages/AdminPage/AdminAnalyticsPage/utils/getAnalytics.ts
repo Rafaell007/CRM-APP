@@ -1,4 +1,5 @@
-import type { Attendance, Employee, Shift } from "../types/models";
+import { getStaffCounts } from "../../../../utils/getStaffCounts";
+import type { Attendance, Employee, Shift } from "../../../../types/models";
 
 const MINUTES_PER_DAY = 24 * 60;
 const MILLISECONDS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.25;
@@ -32,12 +33,6 @@ export const getAnalytics = (
   activeShift: Shift | null = null,
   now = new Date(),
 ) => {
-  const total = employees.length;
-
-  const onShift = activeShift
-    ? employees.filter((employee) => employee.shiftId === activeShift.id).length
-    : 0;
-
   const tenures = employees.map((employee) =>
     tenureInYears(employee.employmentDate, now),
   );
@@ -46,12 +41,7 @@ export const getAnalytics = (
     ? tenures.reduce((sum, tenure) => sum + tenure, 0) / tenures.length
     : 0;
 
-  return {
-    total,
-    onShift,
-    idle: total - onShift,
-    averageTenure,
-  };
+  return { ...getStaffCounts(employees, activeShift), averageTenure };
 };
 
 export const getShiftCoverage = (
