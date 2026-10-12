@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { act, renderHook } from "@testing-library/react";
 import { useEmployeeFilters, INITIAL_FILTERS } from "./useEmployeeFilters";
-import type { Employee, Shift } from "../types/models";
-import { makeEmployee } from "../test/factories";
+import type { Employee, Shift } from "../../../../types/models";
+import { makeEmployee } from "../../../../test/factories";
 
 describe("useEmployeeFilters", () => {
   it("starts with the default filters", () => {

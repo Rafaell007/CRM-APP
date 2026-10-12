@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { getActiveShift } from "../utils/getActiveShift";
-import { getVisibleEmployees, type EmployeeFilters } from "../utils/getVisibleEmployees";
-import type { Employee, Shift } from "../types/models"; 
+import { getActiveShift } from "../../../../utils/getActiveShift";
+import { getVisibleEmployees, type EmployeeFilterState } from "../utils/getVisibleEmployees";
+import type { Employee, Shift } from "../../../../types/models"; 
 
-export const INITIAL_FILTERS: EmployeeFilters = {
+export const INITIAL_FILTERS: EmployeeFilterState = {
   search: "",
   shiftId: "all", // "all" | "shiftA" | "shiftB"
   status: "all", // "all" | "onShift" | "idle"
@@ -14,7 +14,7 @@ export const INITIAL_FILTERS: EmployeeFilters = {
 export const useEmployeeFilters = (employees: Employee[] = [], shifts: Shift[] = []) => {
   const [filters, setFilters] = useState(INITIAL_FILTERS);
 
-  const onFilterChange = (changes: Partial<EmployeeFilters>) => {
+  const onFilterChange = (changes: Partial<EmployeeFilterState>) => {
     setFilters((currentFilters) => ({ ...currentFilters, ...changes }));
   };
 

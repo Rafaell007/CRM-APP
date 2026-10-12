@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { getVisibleEmployees, type EmployeeFilters } from "./getVisibleEmployees";
-import type { Employee, Shift } from "../types/models";
-import { makeEmployee } from "../test/factories";
+import { getVisibleEmployees, type EmployeeFilterState } from "./getVisibleEmployees";
+import type { Employee, Shift } from "../../../../types/models";
+import { makeEmployee } from "../../../../test/factories";
 
 const shiftA: Shift = { id: "shiftA", name: "A", startTime: "06:00", endTime: "14:00" };
 
@@ -29,7 +29,7 @@ const employees: Employee[] = [
   }),
 ];
 
-const DEFAULT_FILTERS: EmployeeFilters = {
+const DEFAULT_FILTERS: EmployeeFilterState = {
   search: "",
   shiftId: "all",
   status: "all",
@@ -38,7 +38,7 @@ const DEFAULT_FILTERS: EmployeeFilters = {
 };
 
 // small helper so each test only states what it changes
-const run = (changes: Partial<EmployeeFilters> = {}, activeShift: Shift | null = shiftA) =>
+const run = (changes: Partial<EmployeeFilterState> = {}, activeShift: Shift | null = shiftA) =>
   getVisibleEmployees(employees, { ...DEFAULT_FILTERS, ...changes }, activeShift);
 
 const idsOf = (list: Employee[]) => list.map((employee) => employee.id);

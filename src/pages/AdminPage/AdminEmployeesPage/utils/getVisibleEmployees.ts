@@ -1,6 +1,6 @@
-import type { Employee, Shift } from "../types/models";
+import type { Employee, Shift } from "../../../../types/models";
 
-export interface EmployeeFilters {
+export interface EmployeeFilterState {
   search: string;
   shiftId: string;                           // "all" or a shift id
   status: "all" | "onShift" | "idle";
@@ -8,7 +8,7 @@ export interface EmployeeFilters {
   sortDirection: "asc" | "desc";
 }
 
-export const getVisibleEmployees = (employees: Employee[], filters: EmployeeFilters, activeShift: Shift | null) => {
+export const getVisibleEmployees = (employees: Employee[], filters: EmployeeFilterState, activeShift: Shift | null) => {
   const { search ,shiftId, status, sortBy, sortDirection } = filters;
 
   const searchText = search.trim().toLowerCase();

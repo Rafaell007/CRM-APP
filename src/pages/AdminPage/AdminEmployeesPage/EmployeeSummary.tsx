@@ -1,12 +1,12 @@
-import { getAnalytics } from "../../../utils/getAnalytics";
+import { getStaffCounts } from "../../../utils/getStaffCounts";
 import type { Employee, Shift } from "../../../types/models";
-import type { EmployeeFilters } from "../../../utils/getVisibleEmployees";
+import type { EmployeeFilterState } from "./utils/getVisibleEmployees";
 
 interface EmployeeSummaryProps {
   employees: Employee[];
   activeShift: Shift | null;
   onReset: () => void;
-  onFilterChange: (changes: Partial<EmployeeFilters>) => void;
+  onFilterChange: (changes: Partial<EmployeeFilterState>) => void;
 }
 
 const EmployeeSummary = ({
@@ -15,7 +15,7 @@ const EmployeeSummary = ({
   onReset,
   onFilterChange,
 }: EmployeeSummaryProps) => {
-  const { total, onShift, idle } = getAnalytics(employees, activeShift);
+  const { total, onShift, idle } = getStaffCounts(employees, activeShift);
 
   const summary = [
     { label: "All Employees", value: total, onClick: onReset },
