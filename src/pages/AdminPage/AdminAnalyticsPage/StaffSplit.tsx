@@ -6,7 +6,6 @@ const RADIUS = 62;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 const SHADES = ["#1a1a1a", "#6b6b6b", "#a3a3a3", "#d6d6d6"];
 
-// More segments than shades -> the colours repeat
 const shadeAt = (index: number) => SHADES[index % SHADES.length];
 
 interface StaffSplitProps {

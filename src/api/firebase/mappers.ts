@@ -5,9 +5,6 @@ import {
 } from "firebase/firestore";
 import type { Attendance, Employee, Shift, Table } from "../../types/models";
 
-// Firestore returns untyped data; these functions are the one place
-// where it becomes our typed models
-
 // Firestore Timestamps -> ISO strings, so the data is plain and serializable
 const toPlain = (data: DocumentData) =>
   Object.fromEntries(

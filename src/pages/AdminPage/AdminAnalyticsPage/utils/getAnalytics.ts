@@ -60,7 +60,6 @@ export const getShiftCoverage = (
     })),
   }));
 
-// Hours of the day that no shift covers - the gap a manager has to fill.
 export const getUncoveredHours = (shifts: Shift[] = []): number => {
   const coveredMinutes = new Array(MINUTES_PER_DAY).fill(false);
 
@@ -106,7 +105,6 @@ export const getStaffSplit = (
         ]
       : perShift;
 
-  // Each slice of the donut needs to know where the previous one ended.
   const total = employees.length;
   let usedFraction = 0;
 
@@ -158,7 +156,6 @@ export const getHoursSummary = (
   };
 };
 
-// Types derived from the functions above, so they never drift from the real data
 export type AnalyticsStats = ReturnType<typeof getAnalytics>;
 export type ShiftCoverageRow = ReturnType<typeof getShiftCoverage>[number];
 export type StaffSplitSegment = ReturnType<typeof getStaffSplit>[number];

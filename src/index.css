@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* The project's design tokens. Each one becomes a class, e.g. --color-panel -> bg-panel */
 @theme {
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
@@ -44,11 +43,6 @@
 
   --shadow-popover: 0 8px 24px rgb(0 0 0 / 0.12);
   --shadow-fab: 0 4px 12px rgb(0 0 0 / 0.2);
-}
-
-/* The employee table's columns, shared by its header and every row */
-@utility grid-cols-employees {
-  grid-template-columns: minmax(220px, 1fr) 80px 170px 170px 80px;
 }
 
 @layer base {

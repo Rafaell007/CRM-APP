@@ -30,7 +30,6 @@ const toPath = (values: YearSeries["values"], highest: number): string =>
       const y = HEIGHT - PADDING - (value / highest) * (HEIGHT - PADDING * 2);
       return [`${x.toFixed(1)},${y.toFixed(1)}`];
     })
-    // SVG path: "M" moves to the first point, "L" draws a line to each next one
     .map((point, index) => `${index === 0 ? "M" : "L"}${point}`)
     .join(" ");
 

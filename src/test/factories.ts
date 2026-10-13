@@ -1,7 +1,5 @@
 import type { Attendance, Employee } from "../types/models";
 
-// Build a full, valid object; each test only overrides the fields it cares about
-
 export const makeEmployee = (overrides: Partial<Employee> = {}): Employee => ({
   id: "0",
   name: "Test Person",

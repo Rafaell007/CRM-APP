@@ -7,8 +7,6 @@ interface ChatWidgetProps {
   author: string;
 }
 
-// Stays mounted while the user is logged in, so the connection and the
-// messages survive page changes and closing the panel
 const ChatWidget = ({ author }: ChatWidgetProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { messages, status, sendMessage } = useChat(author);

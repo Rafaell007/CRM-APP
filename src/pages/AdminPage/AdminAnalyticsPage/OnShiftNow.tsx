@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { ChevronDown, UsersRound } from "lucide-react";
 import Collapse from "../../../components/Collapse";
+import EmployeeTable from "../../../components/EmployeeTable/EmployeeTable";
+import { employeeColumns } from "../../../components/EmployeeTable/employeeColumns";
 import type { Employee, Shift } from "../../../types/models";
 
 interface OnShiftNowProps {
@@ -46,17 +48,12 @@ const OnShiftNow = ({ employees, activeShift }: OnShiftNowProps) => {
           </button>
 
           <Collapse isOpen={isOpen}>
-            <ul className="mt-2 flex max-h-80 flex-col gap-2 overflow-y-auto">
-              {employees.map(({ id, avatar, name, email }) => (
-                <li key={id} className="flex items-center gap-3 rounded-lg bg-surface px-3 py-2.5">
-                  <img className="size-9 rounded-full object-cover" src={avatar} alt="" />
-                  <div>
-                    <p className="text-md font-semibold">{name}</p>
-                    <p className="text-xs text-muted">{email}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <EmployeeTable
+              employees={employees}
+              columns={[employeeColumns.person]}
+              framed={false}
+              className="mt-2 max-h-80"
+            />
           </Collapse>
         </>
       )}

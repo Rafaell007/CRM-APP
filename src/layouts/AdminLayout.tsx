@@ -55,7 +55,6 @@ const AdminLayout = () => {
         />
       )}
 
-      {/* Below md the sidebar is a drawer that slides in from the left */}
       <aside
         className={`flex flex-col bg-surface p-4 max-md:fixed max-md:inset-y-0 max-md:left-0 max-md:z-20 max-md:w-65 max-md:overflow-y-auto max-md:transition-transform max-md:duration-250 md:sticky md:top-0 md:h-screen md:w-60 md:shrink-0 md:p-6 ${isMenuOpen ? "" : "max-md:-translate-x-full"}`}
       >

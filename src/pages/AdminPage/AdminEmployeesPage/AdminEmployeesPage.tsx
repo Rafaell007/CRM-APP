@@ -1,13 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { employeesQuery, shiftsQuery } from "../../../api/queries";
 import { useEmployeeFilters } from "./hooks/useEmployeeFilters";
+import EmployeeTable from "../../../components/EmployeeTable/EmployeeTable";
 
 import EmployeeSummary from "./EmployeeSummary";
-import EmployeeList from "./EmployeeList/EmployeeList";
 import EmployeeFilters from "./EmployeeFilters";
 
 const AdminEmployeesPage = () => {
-  // Default to [] so the children always get a list, even before the data arrives
   const {
     data: employees = [],
     isPending: isLoadingEmployees,
@@ -46,14 +45,18 @@ const AdminEmployeesPage = () => {
         onFilterChange={onFilterChange}
       />
 
-      <EmployeeList employees={visibleEmployees}>
-        <EmployeeFilters
-          shifts={shifts}
-          filters={filters}
-          onFilterChange={onFilterChange}
-          onReset={resetFilters}
-        />
-      </EmployeeList>
+      <EmployeeTable
+        employees={visibleEmployees}
+        className="mt-6 md:min-h-80 md:flex-1"
+        toolbar={
+          <EmployeeFilters
+            shifts={shifts}
+            filters={filters}
+            onFilterChange={onFilterChange}
+            onReset={resetFilters}
+          />
+        }
+      />
     </div>
   );
 };

@@ -3,7 +3,6 @@ import type { Shift } from "../../../types/models";
 
 const HOUR_MARKS = [0, 6, 12, 18, 24];
 
-// Label column + 24h track; the hour scale below uses the same columns to line up
 const ROW_GRID = "grid grid-cols-[92px_1fr] items-center gap-3";
 
 const BLOCK = "absolute top-0 flex h-full items-center justify-center rounded-lg";
