@@ -49,7 +49,10 @@ export const getEmployeeCells = (
     <span
       className={`flex size-7.5 items-center justify-center rounded-full text-sm leading-none font-semibold text-white ${SHIFT_COLORS[employee.shift.name.toLowerCase()] ?? ""}`}
     >
-      {employee.shift.name}
+      {/* Trims the empty space above/below the letter so it sits in the true centre */}
+      <span className="[text-box:trim-both_cap_alphabetic]">
+        {employee.shift.name}
+      </span>
     </span>
   ),
   employmentDate: formatDate(employee.employmentDate),
