@@ -1,32 +1,22 @@
 import { useState, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
-import type { TableColumn } from "./Table";
+import type { DataTableColumn } from "./types";
 
 const DETAILS_OPEN =
   "mt-1 flex basis-full flex-col items-start gap-2 border-t border-border pt-2.5";
 
-interface TableRowProps<Id extends string> {
-  cells: Record<Id, ReactNode>;
-  cardColumns: TableColumn<Id>[];
-  detailColumns: TableColumn<Id>[];
-  gridTemplateColumns: string;
+interface DataTableRowProps<T> {
+  cells: Record<string, ReactNode>;
+  cardColumns: DataTableColumn<T>[];
+  detailColumns: DataTableColumn<T>[];
 }
 
-// Mobile: card cells in one line, details wrap below when opened. lg+: one grid row
-const TableRow = <Id extends string>({
-  cells,
-  cardColumns,
-  detailColumns,
-  gridTemplateColumns,
-}: TableRowProps<Id>) => {
+const DataTableRow = <T,>({ cells, cardColumns, detailColumns }: DataTableRowProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const hasDetails = detailColumns.length > 0;
 
   return (
-    <li
-      className="flex flex-wrap items-center gap-2.5 rounded-lg bg-surface p-3 lg:grid lg:gap-4 lg:bg-transparent lg:px-4 lg:odd:bg-surface"
-      style={{ gridTemplateColumns }}
-    >
+    <li className="flex flex-wrap items-center gap-2.5 rounded-lg bg-surface p-3 lg:col-span-full lg:grid lg:grid-cols-subgrid lg:gap-x-4 lg:bg-transparent lg:px-4 lg:odd:bg-surface">
       {cardColumns.map((column, index) => (
         <div key={column.id} className={index === 0 ? "min-w-0 flex-1" : ""}>
           {cells[column.id]}
@@ -62,4 +52,4 @@ const TableRow = <Id extends string>({
   );
 };
 
-export default TableRow;
+export default DataTableRow;

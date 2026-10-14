@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { ChevronDown, UsersRound } from "lucide-react";
 import Collapse from "../../../components/Collapse";
-import Table from "../../../components/Table/Table";
-import { employeeColumns, toEmployeeRows } from "../employeeColumns";
+import DataTable from "../../../components/DataTable/DataTable";
+import { toDataTableRows } from "../../../components/DataTable/utils/toDataTableRows";
+import { employeeColumns } from "../employeeColumns";
 import type { Employee, Shift } from "../../../types/models";
+
+const COLUMNS = [employeeColumns.person];
 
 interface OnShiftNowProps {
   employees: Employee[];
@@ -48,9 +51,9 @@ const OnShiftNow = ({ employees, activeShift }: OnShiftNowProps) => {
           </button>
 
           <Collapse isOpen={isOpen}>
-            <Table
-              columns={[employeeColumns.person]}
-              rows={toEmployeeRows(employees)}
+            <DataTable
+              columns={COLUMNS}
+              rows={toDataTableRows(employees, COLUMNS)}
               framed={false}
               className="mt-2 max-h-80"
             />
