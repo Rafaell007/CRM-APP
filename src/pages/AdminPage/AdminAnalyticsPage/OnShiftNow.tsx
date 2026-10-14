@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ChevronDown, UsersRound } from "lucide-react";
 import Collapse from "../../../components/Collapse";
-import EmployeeTable from "../../../components/EmployeeTable/EmployeeTable";
-import { employeeColumns } from "../../../components/EmployeeTable/employeeColumns";
+import Table from "../../../components/Table/Table";
+import { employeeColumns, toEmployeeRows } from "../employeeColumns";
 import type { Employee, Shift } from "../../../types/models";
 
 interface OnShiftNowProps {
@@ -48,9 +48,9 @@ const OnShiftNow = ({ employees, activeShift }: OnShiftNowProps) => {
           </button>
 
           <Collapse isOpen={isOpen}>
-            <EmployeeTable
-              employees={employees}
+            <Table
               columns={[employeeColumns.person]}
+              rows={toEmployeeRows(employees)}
               framed={false}
               className="mt-2 max-h-80"
             />

@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { employeesQuery, shiftsQuery } from "../../../api/queries";
 import { useEmployeeFilters } from "./hooks/useEmployeeFilters";
-import EmployeeTable from "../../../components/EmployeeTable/EmployeeTable";
+import Table from "../../../components/Table/Table";
+import { allEmployeeColumns, toEmployeeRows } from "../employeeColumns";
 
 import EmployeeSummary from "./EmployeeSummary";
 import EmployeeFilters from "./EmployeeFilters";
@@ -45,8 +46,9 @@ const AdminEmployeesPage = () => {
         onFilterChange={onFilterChange}
       />
 
-      <EmployeeTable
-        employees={visibleEmployees}
+      <Table
+        columns={allEmployeeColumns}
+        rows={toEmployeeRows(visibleEmployees)}
         className="mt-6 md:min-h-80 md:flex-1"
         toolbar={
           <EmployeeFilters

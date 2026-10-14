@@ -1,37 +1,38 @@
 import type { ReactNode } from "react";
-import EmployeeRow from "./EmployeeRow";
-import { employeeColumns, type EmployeeColumn } from "./employeeColumns";
-import type { Employee } from "../../types/models";
+import TableRow from "./TableRow";
 
-const ALL_COLUMNS: EmployeeColumn[] = [
-  employeeColumns.person,
-  employeeColumns.shift,
-  employeeColumns.employmentDate,
-  employeeColumns.billingDate,
-];
+export interface TableColumn<Id extends string = string> {
+  id: Id;
+  header: string;
+  width?: string;
+  mobile?: "card" | "details";
+}
 
-interface EmployeeTableProps {
-  employees: Employee[];
-  /** What is shown — ready-made `employeeColumns.*` and/or your own. Default: all */
-  columns?: EmployeeColumn[];
+export interface TableRowData<Id extends string = string> {
+  id: string;
+  cells: Record<Id, ReactNode>;
+}
+
+interface TableProps<Id extends string> {
+  columns: TableColumn<Id>[];
+  rows: TableRowData<NoInfer<Id>>[];
   toolbar?: ReactNode;
-  /** false = no own background/padding, for use inside another panel */
   framed?: boolean;
   className?: string;
 }
 
-const EmployeeTable = ({
-  employees,
-  columns = ALL_COLUMNS,
+const Table = <Id extends string>({
+  columns,
+  rows,
   toolbar,
   framed = true,
   className = "",
-}: EmployeeTableProps) => {
+}: TableProps<Id>) => {
   const cardColumns = columns.filter((column) => column.mobile === "card");
   const detailColumns = columns.filter((column) => column.mobile !== "card");
+  // Rows render card cells first, so the header uses the same order
   const orderedColumns = [...cardColumns, ...detailColumns];
 
-  // Widths come from the columns, so they are known only at runtime → inline style
   const gridTemplateColumns = orderedColumns
     .map((column) => column.width ?? "1fr")
     .join(" ");
@@ -53,10 +54,10 @@ const EmployeeTable = ({
         </div>
 
         <ul className="flex flex-col gap-2 lg:gap-0">
-          {employees.map((employee) => (
-            <EmployeeRow
-              key={employee.id}
-              employee={employee}
+          {rows.map((row) => (
+            <TableRow
+              key={row.id}
+              cells={row.cells}
               cardColumns={cardColumns}
               detailColumns={detailColumns}
               gridTemplateColumns={gridTemplateColumns}
@@ -68,4 +69,4 @@ const EmployeeTable = ({
   );
 };
 
-export default EmployeeTable;
+export default Table;

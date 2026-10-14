@@ -1,3 +1,4 @@
+
 import type { Employee, Shift } from "../types/models";
 
 export const getStaffCounts = (employees: Employee[], activeShift: Shift | null) => {
@@ -8,3 +9,5 @@ export const getStaffCounts = (employees: Employee[], activeShift: Shift | null)
 
   return { total, onShift, idle: total - onShift };
 };
+
+

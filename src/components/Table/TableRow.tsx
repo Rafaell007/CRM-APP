@@ -1,25 +1,24 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
-import type { Employee } from "../../types/models";
-import type { EmployeeColumn } from "./employeeColumns";
+import type { TableColumn } from "./Table";
 
 const DETAILS_OPEN =
   "mt-1 flex basis-full flex-col items-start gap-2 border-t border-border pt-2.5";
 
-interface EmployeeRowProps {
-  employee: Employee;
-  cardColumns: EmployeeColumn[];
-  detailColumns: EmployeeColumn[];
+interface TableRowProps<Id extends string> {
+  cells: Record<Id, ReactNode>;
+  cardColumns: TableColumn<Id>[];
+  detailColumns: TableColumn<Id>[];
   gridTemplateColumns: string;
 }
 
 // Mobile: card cells in one line, details wrap below when opened. lg+: one grid row
-const EmployeeRow = ({
-  employee,
+const TableRow = <Id extends string>({
+  cells,
   cardColumns,
   detailColumns,
   gridTemplateColumns,
-}: EmployeeRowProps) => {
+}: TableRowProps<Id>) => {
   const [isOpen, setIsOpen] = useState(false);
   const hasDetails = detailColumns.length > 0;
 
@@ -30,7 +29,7 @@ const EmployeeRow = ({
     >
       {cardColumns.map((column, index) => (
         <div key={column.id} className={index === 0 ? "min-w-0 flex-1" : ""}>
-          {column.cell(employee)}
+          {cells[column.id]}
         </div>
       ))}
 
@@ -53,7 +52,7 @@ const EmployeeRow = ({
             {detailColumns.map((column) => (
               <div key={column.id} className="flex items-center gap-1 text-base">
                 <span className="text-muted lg:hidden">{column.header}:</span>
-                {column.cell(employee)}
+                {cells[column.id]}
               </div>
             ))}
           </div>
@@ -63,4 +62,4 @@ const EmployeeRow = ({
   );
 };
 
-export default EmployeeRow;
+export default TableRow;
