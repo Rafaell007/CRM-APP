@@ -1,23 +1,22 @@
-import {  Router } from "express";
+import { Router } from "express";
+import { isValidObjectId } from "mongoose";
+import { Shift } from "../models/Shift.ts";
 
 export const shiftRouter = Router();
 
-const shifts = [
-  { id: "1", name: "A", startTime: "08:00", endTime: "16:00" },
-  { id: "2", name: "B", startTime: "16:00", endTime: "00:00" },
-];
-
-shiftRouter.get("/", (_request, response)=>{
-    response.json(shifts); 
+shiftRouter.get("/", async (_request, response) => {
+  const shifts = await Shift.find();
+  response.json(shifts);
 });
 
-shiftRouter.get("/:id", (request, response)=> {
-    const shift = shifts.find((item)=> item.id === request.params.id);
+shiftRouter.get("/:id", async (request, response) => {
+  const { id } = request.params;
+  const shift = isValidObjectId(id) ? await Shift.findById(id) : null;
 
-    if(!shift){
-        response.status(404).json({message: "Shift not found"});
-        return;
-    }
+  if (!shift) {
+    response.status(404).json({ message: "Shift not found" });
+    return;
+  }
 
-    response.json(shift);
+  response.json(shift);
 });

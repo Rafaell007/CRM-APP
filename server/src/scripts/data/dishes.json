@@ -1,0 +1,107 @@
+[
+  {
+    "id": "bruschetta",
+    "name": "Bruschetta",
+    "category": "appetizer",
+    "price": 750,
+    "image": "https://picsum.photos/seed/bruschetta/300/200"
+  },
+  {
+    "id": "caesar-salad",
+    "name": "Caesar Salad",
+    "category": "appetizer",
+    "price": 950,
+    "image": "https://picsum.photos/seed/caesar-salad/300/200"
+  },
+  {
+    "id": "chocolate-fondant",
+    "name": "Chocolate Fondant",
+    "category": "dessert",
+    "price": 850,
+    "image": "https://picsum.photos/seed/chocolate-fondant/300/200"
+  },
+  {
+    "id": "craft-lager",
+    "name": "Craft Lager",
+    "category": "drinks",
+    "price": 650,
+    "image": "https://picsum.photos/seed/craft-lager/300/200"
+  },
+  {
+    "id": "espresso",
+    "name": "Espresso",
+    "category": "drinks",
+    "price": 420,
+    "image": "https://picsum.photos/seed/espresso/300/200"
+  },
+  {
+    "id": "garlic-bread",
+    "name": "Garlic Bread",
+    "category": "appetizer",
+    "price": 550,
+    "image": "https://picsum.photos/seed/garlic-bread/300/200"
+  },
+  {
+    "id": "grilled-salmon",
+    "name": "Grilled Salmon",
+    "category": "main",
+    "price": 2450,
+    "image": "https://picsum.photos/seed/grilled-salmon/300/200"
+  },
+  {
+    "id": "house-red-wine",
+    "name": "House Red Wine",
+    "category": "drinks",
+    "price": 890,
+    "image": "https://picsum.photos/seed/house-red-wine/300/200"
+  },
+  {
+    "id": "lemon-sorbet",
+    "name": "Lemon Sorbet",
+    "category": "dessert",
+    "price": 620,
+    "image": "https://picsum.photos/seed/lemon-sorbet/300/200"
+  },
+  {
+    "id": "margherita-pizza",
+    "name": "Margherita Pizza",
+    "category": "main",
+    "price": 1450,
+    "image": "https://picsum.photos/seed/margherita-pizza/300/200"
+  },
+  {
+    "id": "pasta-carbonara",
+    "name": "Pasta Carbonara",
+    "category": "main",
+    "price": 1650,
+    "image": "https://picsum.photos/seed/pasta-carbonara/300/200"
+  },
+  {
+    "id": "ribeye-steak",
+    "name": "Ribeye Steak",
+    "category": "main",
+    "price": 3200,
+    "image": "https://picsum.photos/seed/ribeye-steak/300/200"
+  },
+  {
+    "id": "soup-of-the-day",
+    "name": "Soup of the Day",
+    "category": "appetizer",
+    "price": 690,
+    "image": "https://picsum.photos/seed/soup-of-the-day/300/200"
+  },
+  {
+    "id": "still-water",
+    "name": "Still Water",
+    "category": "drinks",
+    "price": 350,
+    "image": "https://picsum.photos/seed/still-water/300/200"
+  },
+  {
+    "id": "tiramisu",
+    "name": "Tiramisu",
+    "category": "dessert",
+    "price": 780,
+    "image": "https://picsum.photos/seed/tiramisu/300/200"
+  }
+]

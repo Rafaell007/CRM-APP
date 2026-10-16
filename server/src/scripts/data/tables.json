@@ -1,0 +1,121 @@
+[
+  {
+    "id": "1",
+    "number": "1",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 2
+  },
+  {
+    "id": "10",
+    "number": "10",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 4
+  },
+  {
+    "id": "11",
+    "number": "11",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 6
+  },
+  {
+    "id": "12",
+    "number": "12",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 2
+  },
+  {
+    "id": "13",
+    "number": "13",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 4
+  },
+  {
+    "id": "14",
+    "number": "14",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 4
+  },
+  {
+    "id": "15",
+    "number": "15",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 6
+  },
+  {
+    "id": "2",
+    "number": "2",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 2
+  },
+  {
+    "id": "3",
+    "number": "3",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 4
+  },
+  {
+    "id": "4",
+    "number": "4",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 4
+  },
+  {
+    "id": "5",
+    "number": "5",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 4
+  },
+  {
+    "id": "6",
+    "number": "6",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 2
+  },
+  {
+    "id": "7",
+    "number": "7",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 6
+  },
+  {
+    "id": "8",
+    "number": "8",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 4
+  },
+  {
+    "id": "9",
+    "number": "9",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 2
+  },
+  {
+    "id": "A1",
+    "number": "A1",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 8
+  },
+  {
+    "id": "A2",
+    "number": "A2",
+    "status": "free",
+    "reservationTime": null,
+    "seats": 8
+  }
+]

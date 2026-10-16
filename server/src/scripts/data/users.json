@@ -1,0 +1,14 @@
+[
+  {
+    "id": "SzHWue1TZ3UjmDCkx6qyWRFTvCm1",
+    "role": "admin",
+    "email": "admin@restaurant.com",
+    "displayName": "Jan Kowalski"
+  },
+  {
+    "id": "fs7sEeigBxQjSBRn1QarcZFulO13",
+    "role": "waiter",
+    "email": "waiter@restaurant.com",
+    "displayName": "Jan Nowak"
+  }
+]
