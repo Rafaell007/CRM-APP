@@ -9,4 +9,11 @@ const employeeSchema = new Schema({
   billingDate: { type: Date, required: true },
 });
 
+employeeSchema.virtual("shift", {
+  ref: "Shift",
+  localField: "shiftId",
+  foreignField: "_id",
+  justOne: true,
+});
+
 export const Employee = model("Employee", employeeSchema);
