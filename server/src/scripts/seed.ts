@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import bcrypt from "bcryptjs";
 import mongoose, { type Types } from "mongoose";
 import { connectDb } from "../config/db.ts";
 import { Attendance } from "../models/Attendance.ts";
@@ -18,9 +19,10 @@ const readData = (name: string): Exported[] =>
 const withoutId = ({ id: _oldId, ...data }: Exported) => data;
 
 const MONGODB_URI = process.env.MONGODB_URI;
+const SEED_PASSWORD = process.env.SEED_PASSWORD;
 
-if (!MONGODB_URI) {
-  throw new Error("MONGODB_URI is missing in server/.env");
+if (!MONGODB_URI || !SEED_PASSWORD) {
+  throw new Error("MONGODB_URI or SEED_PASSWORD is missing in server/.env");
 }
 
 await connectDb(MONGODB_URI);
@@ -50,7 +52,11 @@ const employees = readData("employees").map((employee) => ({
 await Employee.insertMany(employees);
 await Attendance.insertMany(readData("attendance").map(withoutId));
 await Table.insertMany(readData("tables").map(withoutId));
-await User.insertMany(readData("users").map(withoutId));
+const passwordHash = await bcrypt.hash(SEED_PASSWORD, 10);
+
+await User.insertMany(
+  readData("users").map((user) => ({ ...withoutId(user), passwordHash })),
+);
 await Dish.insertMany(readData("dishes").map(withoutId));
 
 console.log("Seeded:", {
