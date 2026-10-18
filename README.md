@@ -209,6 +209,13 @@ Server (`server/`):
 |---|---|
 | `npm run dev` | Start the API, restart on file changes |
 | `npm run seed` | Reset the database and load the demo data |
+| `npm test` | Run the API tests in watch mode |
+| `npm run test:run` | Run the API tests once |
+
+The API tests (Vitest + supertest) start a throwaway in-memory MongoDB
+(`mongodb-memory-server`), so they never touch the real database. They cover
+login, `/me`, logout, forged / expired tokens and the access rules of every
+route.
 
 ---
 
