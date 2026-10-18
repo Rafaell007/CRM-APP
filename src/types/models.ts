@@ -38,7 +38,8 @@ export interface Attendance {
 export type UserRole = "admin" | "waiter";
 
 export interface AuthUser {
-  uid: string;
-  email: string | null;
+  id: string;
+  email: string;
+  displayName: string;
   role: UserRole;
 }

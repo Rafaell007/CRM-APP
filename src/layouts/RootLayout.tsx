@@ -8,7 +8,7 @@ const RootLayout = () => {
   return (
     <>
       <Outlet />
-      {user && <ChatWidget author={user.email ?? "Unknown user"} />}
+      {user && <ChatWidget author={user.displayName} />}
     </>
   );
 };

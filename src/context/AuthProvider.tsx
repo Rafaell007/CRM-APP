@@ -1,12 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../api/firebase/client";
+import * as authApi from "../api/http/auth";
 import { AuthContext } from "./authContext";
 import type { AuthUser } from "../types/models";
 
@@ -20,28 +14,22 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (!firebaseUser) {
-        setUser(null);
+    authApi
+      .fetchCurrentUser()
+      .catch(() => null)
+      .then((currentUser) => {
+        setUser(currentUser);
         setIsLoading(false);
-        return;
-      }
-      const profile = await getDoc(doc(db, "users", firebaseUser.uid));
-      setUser({
-        uid: firebaseUser.uid,
-        email: firebaseUser.email,
-        role: profile.data()?.role,
       });
-      setIsLoading(false);
-    });
-    return unsubscribe;
   }, []);
 
-  const login = (email: string, password: string) =>
-    signInWithEmailAndPassword(auth, email, password);
+  const login = async (email: string, password: string) => {
+    setUser(await authApi.login(email, password));
+  };
 
   const logout = async () => {
-    await signOut(auth);
+    await authApi.logout();
+    setUser(null);
     queryClient.clear(); // the next user must not see the previous user's cached data
   };
 

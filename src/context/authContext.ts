@@ -1,11 +1,10 @@
 import { createContext, useContext } from "react";
 import type { AuthUser } from "../types/models";
-import type { UserCredential } from "firebase/auth";
 
 interface AuthContextValue {
   user: AuthUser | null;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<UserCredential>;
+  login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
