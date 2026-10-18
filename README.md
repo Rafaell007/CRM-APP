@@ -12,9 +12,10 @@ orders.
 | Admin | `admin@restaurant.com` | `admin` |
 | Waiter | `waiter@restaurant.com` | `admin` |
 
-> **Live demo:** https://crm-app-iota-one.vercel.app — the frontend is on
-> Vercel, but the new backend is not deployed yet, so signing in there does not
-> work until it is. Run the app locally (see [Getting started](#getting-started)).
+**Live demo:** https://crm-app-iota-one.vercel.app
+
+> The API runs on a free Render instance that sleeps after 15 minutes without
+> traffic — the first sign-in after a break can take about a minute.
 
 ---
 
@@ -297,6 +298,42 @@ never leaves the server.
 
 ---
 
+## Deployment
+
+```
+browser → Vercel (React build) ──rewrite /api/*──► Render (Express) → MongoDB Atlas
+```
+
+- **Frontend — Vercel:** every push to `main` builds the app (`npm run build`)
+  and publishes `dist/`.
+- **API — Render** (free web service, region Frankfurt): root directory
+  `server`, build command `npm install`, start command `npm start`
+  (`node src/index.ts`; `engines` in `server/package.json` asks for Node 24+).
+  Environment variables are set in Render, not in a file: `MONGODB_URI`,
+  `JWT_SECRET` (its own, not the local one) and `NODE_ENV=production`, which
+  turns on the `Secure` cookie. Render redeploys on every push too.
+- **Database — MongoDB Atlas:** Render's free instances have no fixed IP, so
+  Network Access allows `0.0.0.0/0`; the strong database password is the lock.
+- **[`vercel.json`](vercel.json)** joins the two:
+
+  ```json
+  {
+    "rewrites": [
+      { "source": "/api/(.*)", "destination": "https://crm-api-schx.onrender.com/api/$1" },
+      { "source": "/(.*)", "destination": "/index.html" }
+    ]
+  }
+  ```
+
+  The first rule forwards API calls to Render, like the Vite proxy does in
+  development. The browser only ever talks to the Vercel domain, so there is
+  no CORS and the auth cookie belongs to that domain. The second rule sends
+  every other path to `index.html`, because routes like `/admin/employees`
+  exist only inside the React router. Order matters — the first matching rule
+  wins.
+
+---
+
 ## Security
 
 Access is checked in two places, and only the second one is real security:
@@ -326,7 +363,8 @@ Other details:
 
 ## Known limitations
 
-- The backend is not deployed yet, so the Vercel demo cannot sign in.
+- The free API instance sleeps when idle, so the first request after a break
+  is slow.
 - The API is read-only for now — there are no create / edit routes.
 - `apiFetch<T>` trusts the server's response shape; there is no runtime
   validation of responses yet.
