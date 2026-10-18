@@ -4,7 +4,7 @@ import {
   fetchEmployees,
   fetchShifts,
   fetchTables,
-} from "./firebase/fetchers";
+} from "./http/fetchers";
 
 export const shiftsQuery = queryOptions({
   queryKey: ["shifts"],
