@@ -5,15 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch --env-file=.env src/index.ts",
-    "seed": "node --env-file=.env src/scripts/seed.ts",
-    "export:firestore": "node src/scripts/exportFirestore.ts"
+    "seed": "node --env-file=.env src/scripts/seed.ts"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^24.19.2",
-    "firebase-admin": "^14.5.0"
+    "@types/node": "^24.19.2"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

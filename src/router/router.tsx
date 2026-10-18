@@ -19,7 +19,7 @@ interface RouterContext {
   user: AuthUser | null;
 }
 
-// Route guards are UX only - Firestore Security Rules protect the data
+// Route guards are UX only - the server's requireAuth/requireRole protect the data
 const requireRole = (user: AuthUser | null, role: UserRole) => {
   if (user?.role !== role) throw redirect({ to: "/login" });
 };

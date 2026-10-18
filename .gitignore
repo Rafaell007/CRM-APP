@@ -28,11 +28,5 @@ dist-ssr
 .env.*
 !.env.example
 
-# Firebase service account private keys - NEVER commit
-.secrets/
-serviceAccountKey.json
-*serviceAccount*.json
-firebase-adminsdk*.json
-
 # Private notes for Claude Code
 CLAUDE.md
