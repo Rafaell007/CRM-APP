@@ -14,6 +14,19 @@ import {
 const tokenCookie = (payload: object, secret = "test-secret", expiresIn = 60) =>
   `token=${jwt.sign(payload, secret, { expiresIn })}`;
 
+const getCookie = (response: request.Response, name: string) => {
+  const cookie = response.get("Set-Cookie")?.find((value) => value.startsWith(`${name}=`));
+
+  if (!cookie) {
+    throw new Error(`No ${name} cookie in the response`);
+  }
+
+  return cookie.split(";")[0];
+};
+
+const login = () =>
+  request(app).post("/api/auth/login").send({ email: ADMIN_EMAIL, password: TEST_PASSWORD });
+
 beforeAll(async () => {
   await startTestDb();
   await seedTestData();
@@ -63,6 +76,14 @@ describe("POST /api/auth/login", () => {
       role: "admin",
     });
     expect(response.get("Set-Cookie")?.[0]).toMatch(/^token=.+HttpOnly/);
+  });
+
+  it("sets an httpOnly refresh cookie only for /api/auth", async () => {
+    const response = await login();
+    const refreshCookie = response.get("Set-Cookie")?.find((value) => value.startsWith("refreshToken="));
+
+    expect(refreshCookie).toMatch(/Path=\/api\/auth/);
+    expect(refreshCookie).toMatch(/HttpOnly/);
   });
 });
 
@@ -115,5 +136,59 @@ describe("POST /api/auth/logout", () => {
 
     expect(logout.status).toBe(204);
     expect(me.status).toBe(401);
+  });
+
+  it("ends the session so the refresh token stops working", async () => {
+    const loginResponse = await login();
+    const cookies = [getCookie(loginResponse, "token"), getCookie(loginResponse, "refreshToken")];
+
+    await request(app).post("/api/auth/logout").set("Cookie", cookies);
+    const refresh = await request(app)
+      .post("/api/auth/refresh")
+      .set("Cookie", getCookie(loginResponse, "refreshToken"));
+
+    expect(refresh.status).toBe(401);
+  });
+});
+
+describe("POST /api/auth/refresh", () => {
+  it("returns 401 without a refresh cookie", async () => {
+    const response = await request(app).post("/api/auth/refresh");
+
+    expect(response.status).toBe(401);
+  });
+
+  it("returns 401 for an unknown refresh token", async () => {
+    const response = await request(app)
+      .post("/api/auth/refresh")
+      .set("Cookie", "refreshToken=not-a-real-token");
+
+    expect(response.status).toBe(401);
+  });
+
+  it("gives a new access token when the old one has expired", async () => {
+    const loginResponse = await login();
+
+    // only the refresh cookie is sent, as if the 15-minute access cookie was gone
+    const refresh = await request(app)
+      .post("/api/auth/refresh")
+      .set("Cookie", getCookie(loginResponse, "refreshToken"));
+    const me = await request(app)
+      .get("/api/auth/me")
+      .set("Cookie", getCookie(refresh, "token"));
+
+    expect(refresh.status).toBe(200);
+    expect(refresh.body.email).toBe(ADMIN_EMAIL);
+    expect(me.status).toBe(200);
+  });
+
+  it("accepts each refresh token only once", async () => {
+    const refreshCookie = getCookie(await login(), "refreshToken");
+
+    const first = await request(app).post("/api/auth/refresh").set("Cookie", refreshCookie);
+    const second = await request(app).post("/api/auth/refresh").set("Cookie", refreshCookie);
+
+    expect(first.status).toBe(200);
+    expect(second.status).toBe(401);
   });
 });
