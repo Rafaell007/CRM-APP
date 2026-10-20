@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import bcrypt from "bcryptjs";
 import mongoose, { type Types } from "mongoose";
 import { connectDb } from "../config/db.ts";
+import { MONGODB_URI, readEnv } from "../config/env.ts";
 import { Attendance } from "../models/Attendance.ts";
 import { Dish } from "../models/Dish.ts";
 import { Employee } from "../models/Employee.ts";
@@ -18,12 +19,7 @@ const readData = (name: string): Exported[] =>
 
 const withoutId = ({ id: _oldId, ...data }: Exported) => data;
 
-const MONGODB_URI = process.env.MONGODB_URI;
-const SEED_PASSWORD = process.env.SEED_PASSWORD;
-
-if (!MONGODB_URI || !SEED_PASSWORD) {
-  throw new Error("MONGODB_URI or SEED_PASSWORD is missing in server/.env");
-}
+const SEED_PASSWORD = readEnv("SEED_PASSWORD");
 
 await connectDb(MONGODB_URI);
 

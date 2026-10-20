@@ -8,12 +8,12 @@ import { RefreshToken } from "../models/RefreshToken.ts";
 import {
   ACCESS_TOKEN_TTL,
   AUTH_COOKIE,
-  JWT_SECRET,
   REFRESH_COOKIE,
   REFRESH_TOKEN_TTL_MS,
   authCookieOptions,
   refreshCookieOptions,
 } from "../config/auth.ts";
+import { JWT_SECRET } from "../config/env.ts";
 import { requireAuth } from "../middleware/requireAuth.ts";
 
 export const authRouter = Router();

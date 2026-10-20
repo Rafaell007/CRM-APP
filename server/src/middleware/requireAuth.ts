@@ -1,6 +1,7 @@
 import type { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
-import { AUTH_COOKIE, JWT_SECRET } from "../config/auth.ts";
+import { AUTH_COOKIE } from "../config/auth.ts";
+import { JWT_SECRET } from "../config/env.ts";
 
 export interface AuthUser {
   userId: string;
