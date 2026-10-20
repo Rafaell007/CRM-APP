@@ -1,5 +1,6 @@
 import { useState, type SubmitEvent } from "react";
 import { useAuth } from "../context/authContext";
+import { ApiError } from "../api/http/client";
 
 const FIELD = "flex flex-col gap-1.5";
 const LABEL = "text-xs font-semibold text-muted";
@@ -18,8 +19,12 @@ const LoginPage = () => {
     setErrorMessage("");
     try {
       await login(email, password);
-    } catch {
-      setErrorMessage("Wrong email or password");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof ApiError && error.status === 401
+          ? "Wrong email or password"
+          : "Can't reach the server, try again",
+      );
     }
   };
 

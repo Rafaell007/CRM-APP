@@ -28,9 +28,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const logout = async () => {
-    await authApi.logout();
-    setUser(null);
-    queryClient.clear(); // the next user must not see the previous user's cached data
+    try {
+      await authApi.logout();
+    } catch (error) {
+      console.error("Logout request failed", error);
+    } finally {
+      setUser(null);
+      queryClient.clear(); // the next user must not see the previous user's cached data
+    }
   };
 
   return (
