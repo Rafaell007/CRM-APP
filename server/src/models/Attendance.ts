@@ -8,5 +8,4 @@ const attendanceSchema = new Schema({
   absences: { type: Number, required: true },
 });
 
-// Third argument: Mongoose would otherwise name the collection "attendances"
 export const Attendance = model("Attendance", attendanceSchema, "attendance");
